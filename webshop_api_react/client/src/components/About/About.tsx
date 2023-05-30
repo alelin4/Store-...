@@ -1,9 +1,11 @@
-
+import ErrorBoundry from "../../Errorboundry";
 
 function About() {
   return (
-    <div>About</div>
-  )
+    <ErrorBoundry>
+      <div>About</div>
+    </ErrorBoundry>
+  );
 }
 
-export default About
+export default About;

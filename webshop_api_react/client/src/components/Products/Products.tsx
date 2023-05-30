@@ -1,8 +1,9 @@
-
 function Products() {
   return (
-    <div>Products</div>
-  )
+    <div className="product_list">
+      <h4>Products</h4>
+    </div>
+  );
 }
 
-export default Products
+export default Products;
