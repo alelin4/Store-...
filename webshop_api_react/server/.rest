@@ -28,11 +28,11 @@ POST http://localhost:3000/api/products
 Content-Type: application/json
 
 {
-  "title": "",
-  "price": 0,
-  "description": "",
-  "image": "",
-  "inStock": 0
+  "title": "Sensa Deluxe",
+  "price": 2000,
+  "description": "bra säng",
+  "image": "https://www.mcdn.net/images/products/143600.jpg?",
+  "inStock": 1
 }
 
 ###
