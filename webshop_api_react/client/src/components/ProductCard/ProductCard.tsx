@@ -1,21 +1,17 @@
-import { Link } from "react-router-dom";
-import ErrorBoundry from "../../Errorboundry";
-import "./ProductCard.css";
+import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
+import "/src/index.css"
 
-function ProductCard({ product }) {
-  return (
-    <div className="product_card">
-      <ErrorBoundry>
-        <div className="product_card_info">
-          <Link to="/:id">
-            <p>{"{Poduct_image}"}</p>
-            <p>{"{Product_titel}"}</p>
-            <p>{"{Price}"}</p>
-          </Link>
-        </div>
-      </ErrorBoundry>
+function ProductCard( { product } ) {
+  return(
+
+    <div class="md:container md:mx-auto"> 
+    <img class="object-contain h-48 w-96 ..." src={product.image} alt="" />
+      <h1 >{product.title}</h1>
+      <p>{product.price} Kr</p>
+   
+   <AddToCartBtn/>
     </div>
-  );
+  )
 }
 
 export default ProductCard;
