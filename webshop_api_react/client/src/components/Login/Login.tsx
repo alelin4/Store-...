@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Login ()  {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  
+// Logout component
+function Logout({ handleLogout }: { handleLogout: () => void }): JSX.Element {
+  return (
+    <div>
+      <h2>Welcome, you are logged in!</h2>
+      <button onClick={handleLogout}>Logout</button>
+    </div>
+  );
+}
 
-  const handleSubmit = async (e: React.FormEvent) => {
+function Login(): JSX.Element {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+
+    // Validate email and password
+    if (!email || !password) {
+      setErrorMessage('Please enter both email and password.');
+      return;
+    }
 
     try {
       const response = await fetch('/api/users/login', {
@@ -23,56 +41,71 @@ function Login ()  {
 
       const data = await response.json();
       console.log('Login successful', data);
-    } catch (Error) {
-      
-      console.error('Error logging in:', Error);
+
+      // Store username and password in localStorage
+      localStorage.setItem('email', email);
+      localStorage.setItem('password', password);
+
+      // Redirect to the home page or any other desired page
+      navigate('/');
+    } catch (error) {
+      console.error('Error logging in:', error);
+      setErrorMessage('Wrong email or password. Please try again.');
     }
   };
 
+  const handleLogout = (): void => {
+    // Clear localStorage
+    localStorage.removeItem('email');
+    localStorage.removeItem('password');
+
+    // Redirect to the login page
+    navigate('/login');
+  };
+
+  useEffect(() => {
+    // Check for stored login credentials
+    const storedEmail = localStorage.getItem('email');
+    const storedPassword = localStorage.getItem('password');
+
+    if (storedEmail && storedPassword) {
+      // Update login status
+      navigate('/');
+    }
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="max-w-md w-full p-6 bg-white rounded shadow-md">
-        <h2 className="text-2xl font-semibold mb-4">Login</h2>
-        
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
-              Email
-            </label>
-            <input
-              className="border border-gray-300 px-3 py-2 w-full rounded"
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="password">
-              Password
-            </label>
-            <input
-              className="border border-gray-300 px-3 py-2 w-full rounded"
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-              type="submit"
-            >
-              Login
-            </button>
-          </div>
-        </form>
-      </div>
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        {errorMessage && <div>{errorMessage}</div>}
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <button type="submit">Login</button>
+        </div>
+      </form>
     </div>
   );
-};
+}
 
 export default Login;
+
