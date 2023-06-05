@@ -39,6 +39,7 @@ function ProductList(): JSX.Element {
         <div key={product._id}>
           <Link key={product._id} to={`/${product._id}`}>
           <ProductCard product={product}/>
+          
          </Link>
         </div>
       ))}
