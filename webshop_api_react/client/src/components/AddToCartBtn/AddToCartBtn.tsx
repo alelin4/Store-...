@@ -1,9 +1,10 @@
-import "./AddToCartBtn.css";
+import Button from "@mui/material/Button";
+
 function AddToCartBtn() {
   return (
-    <div className="add_to_cart_btn">
-      <button>Lägg i varukorg</button>
-    </div>
+    <Button onClick={() => {}}>
+      Add to cart
+    </Button>
   );
 }
 

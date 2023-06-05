@@ -1,7 +1,7 @@
-import Products from "../Products/Products";
+import ProductsList from "../ProductsList/ProductsList";
 import ProductCard from "../ProductCard/ProductCard";
 import "./Home.css";
-import FilterDropdown from "../FilterDropdown/FilterDropdown";
+//import FilterDropdown from "../FilterDropdown/FilterDropdown";
 import ErrorBoundry from "../../Errorboundry";
 
 function Home() {
@@ -15,14 +15,14 @@ function Home() {
           />
         </ErrorBoundry>
         <ErrorBoundry>
-          <FilterDropdown filter={undefined} setFilter={undefined} />
+          
         </ErrorBoundry>
 
         <ErrorBoundry>
-          <Products />
+          <ProductsList />
         </ErrorBoundry>
         <ErrorBoundry>
-          <ProductCard product={undefined} />
+          <ProductCard />
         </ErrorBoundry>
       </div>
     </ErrorBoundry>
