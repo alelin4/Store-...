@@ -1,8 +1,11 @@
+
 import ProductsList from "../ProductsList/ProductsList";
 import ProductCard from "../ProductCard/ProductCard";
+
 import "./Home.css";
 //import FilterDropdown from "../FilterDropdown/FilterDropdown";
 import ErrorBoundry from "../../Errorboundry";
+
 
 function Home() {
   return (
@@ -22,7 +25,9 @@ function Home() {
           <ProductsList />
         </ErrorBoundry>
         <ErrorBoundry>
+
           <ProductCard />
+
         </ErrorBoundry>
       </div>
     </ErrorBoundry>
