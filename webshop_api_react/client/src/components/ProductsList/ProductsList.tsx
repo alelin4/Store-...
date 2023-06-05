@@ -1,6 +1,7 @@
+import ProductCard from '../ProductCard/ProductCard';
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import ProductCard from '../ProductCard/ProductCard';
+
 
  interface Product {
   _id: string;
