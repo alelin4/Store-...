@@ -15,6 +15,7 @@ function ProductList(): JSX.Element {
     fetchProducts();
   }, []);
 
+  
   const fetchProducts = async (): Promise<void> => {
     try {
       const response = await fetch('/api/products');
