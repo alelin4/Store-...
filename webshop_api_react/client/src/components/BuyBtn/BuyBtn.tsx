@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import "./BuyBtn.css";
 
 function BuyBtn() {
   return (
-    <div className="buy_btn">
+    <div className="bg-blue-500 w-40 flex items-center justify-center">
       <Link to="/checkout">
         <button>BuyBtn</button>
       </Link>

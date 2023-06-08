@@ -1,10 +1,10 @@
-
-
 interface AddToCartButtonProps {
   onClick: () => void;
 }
 
-const AddToCartButton: React.FunctionComponent<AddToCartButtonProps> = ({ onClick }) => {
+const AddToCartButton: React.FunctionComponent<AddToCartButtonProps> = ({
+  onClick,
+}) => {
   return (
     <button
       onClick={onClick}
@@ -16,5 +16,3 @@ const AddToCartButton: React.FunctionComponent<AddToCartButtonProps> = ({ onClic
 };
 
 export default AddToCartButton;
-
-

@@ -27,7 +27,7 @@ function ProductDetails(): JSX.Element {
         setProduct(data);
         console.log(data);
       } else {
-        throw new Error('Error fetching product');
+        throw new Error("Error fetching product");
       }
     } catch (error) {
       console.error(error);
@@ -40,15 +40,19 @@ function ProductDetails(): JSX.Element {
 
   return (
     <>
-    <div className="mx-auto px-8 border border-gray-200 rounded-lg">
-      <div >
-      <h1 className="text-xl">{product.title}</h1>
-      <p className="text-lg">{product.description}</p>
-      <p className="text-lg">{product.price}</p>
-      <img className="object-contain h-48 w-96" src={product.image} alt="" />
-      <AddToCartBtn />
+      <div className="mx-auto px-8 border border-gray-200 rounded-lg">
+        <div>
+          <h1 className="text-xl">{product.title}</h1>
+          <p className="text-lg">{product.description}</p>
+          <p className="text-lg">{product.price}</p>
+          <img
+            className="object-contain h-48 w-96"
+            src={product.image}
+            alt=""
+          />
+          <AddToCartBtn />
+        </div>
       </div>
-    </div>
     </>
   );
 }

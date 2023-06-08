@@ -1,7 +1,3 @@
-
-
-import "/src/index.css";
-
 interface Product {
   _id: string;
   price: number;
@@ -24,11 +20,9 @@ function ProductCard({ product }: ProductCardProps) {
           <h1 className="text-xl">{product.title}</h1>
           <p className="text-lg">{product.price} Kr</p>
         </div>
-       
       </div>
     </div>
   );
 }
 
 export default ProductCard;
-

@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
-import "./navLinks.css";
+
 function NavLinks() {
   return (
-    <ul>
+    <ul className="flex list-none gap-2 mr-2">
       <NavLink to="/">
         <li>Våra produkter</li>
       </NavLink>
