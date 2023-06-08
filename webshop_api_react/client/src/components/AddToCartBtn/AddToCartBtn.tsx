@@ -1,11 +1,20 @@
-import Button from "@mui/material/Button";
 
-function AddToCartBtn() {
-  return (
-    <Button onClick={() => {}}>
-      Add to cart
-    </Button>
-  );
+
+interface AddToCartButtonProps {
+  onClick: () => void;
 }
 
-export default AddToCartBtn;
+const AddToCartButton: React.FunctionComponent<AddToCartButtonProps> = ({ onClick }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="bg-indigo-500 text-white text-lg font-medium rounded-full"
+    >
+      Köp +
+    </button>
+  );
+};
+
+export default AddToCartButton;
+
+
