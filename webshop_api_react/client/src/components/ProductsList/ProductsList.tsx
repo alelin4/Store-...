@@ -47,7 +47,7 @@ function ProductList(): JSX.Element {
           Nytt hos oss
         </h1>
       </div>
-      <div className="flex flex-col items-center gap-3 lg:grid lg:grid-cols-3">
+      <div className="flex flex-col items-center gap-3 lg:grid lg:grid-cols-4 p-8">
         {products.map((product) => (
           <div key={product._id}>
             <Link to={`/${product._id}`}>
