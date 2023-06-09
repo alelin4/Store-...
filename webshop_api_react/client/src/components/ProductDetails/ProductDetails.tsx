@@ -1,6 +1,8 @@
+import { StoreContext } from "../../Context-reducer/StoreContext";
 import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+
 
 interface Product {
   _id: string;
@@ -14,6 +16,14 @@ interface Product {
 function ProductDetails(): JSX.Element {
   const [product, setProduct] = useState<Product | null>(null);
   const { id } = useParams();
+
+  const { addToCart } = useContext(StoreContext);
+
+  const handleAdd = (product: Product): void => {
+    addToCart(product);
+  };
+
+
 
   useEffect(() => {
     fetchProduct();
@@ -40,7 +50,6 @@ function ProductDetails(): JSX.Element {
 
   return (
     <>
-      <div className="mx-auto px-8 border border-gray-200 rounded-lg">
         <div>
           <h1 className="text-xl">{product.title}</h1>
           <p className="text-lg">{product.description}</p>
@@ -50,9 +59,8 @@ function ProductDetails(): JSX.Element {
             src={product.image}
             alt=""
           />
-          <AddToCartBtn />
+            <AddToCartBtn onClick={() => handleAdd(product)} />
         </div>
-      </div>
     </>
   );
 }

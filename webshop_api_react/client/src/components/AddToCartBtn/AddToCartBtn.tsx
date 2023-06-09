@@ -10,7 +10,7 @@ const AddToCartButton: React.FunctionComponent<AddToCartButtonProps> = ({
       onClick={onClick}
       className="bg-indigo-500 text-white text-lg font-medium rounded-full"
     >
-      Köp +
+       Plus +
     </button>
   );
 };
