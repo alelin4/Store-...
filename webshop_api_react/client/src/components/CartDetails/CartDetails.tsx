@@ -7,17 +7,17 @@ function CartDetails() {
   const { products, total } = useContext(StoreContext);
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Varukorg</h1>
+    <div className="p-10 mx-auto px-8 border border-gray-200 rounded-lg">
+      <h1 className="text-2xl font-bold p-5">Varukorg</h1>
       {products.length === 0 ? (
         <p className="text-xl">Din varukorg är tom</p>
       ) : (
         <ul className="mb-4">
           <div>
             <div className="flex flex-row items-center justify-between mt-2 py-6 px-10 text-xl font-medium">
-              <h2>Dina Produkter</h2>
-              <p> Total: Kr {total}</p>
-            </div>
+                <h2>Dina Produkter</h2>
+                <p> Pris för produkter: {total}:-</p>
+              </div>{" "}
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
