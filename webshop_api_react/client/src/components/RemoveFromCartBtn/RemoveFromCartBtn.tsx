@@ -8,7 +8,7 @@ const RemoveFromCartBtn: React.FunctionComponent<RemoveFromCartBtnProps> = ({
   return (
     <button
       onClick={onClick}
-      className="bg-red-500 text-white text-lg font-medium rounded-full"
+      className="bg-red-500 text-white text-lg font-medium rounded-full hover:opacity-50"
     >
       Minus -
     </button>
