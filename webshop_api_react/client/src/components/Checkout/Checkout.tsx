@@ -56,7 +56,7 @@ function CartDetails() {
             className="flex flex-row items-center justify-between mt-2 py-6 px-10 text-xl font-medium"
           >
             <h2>Dina Produkter</h2>
-            <p> Total: Kr {total}</p>
+            <p> Pris för produkter: {total}:-</p>
           </div>
           {products.map((product) => (
             <ProductCard product={product} />
@@ -64,7 +64,7 @@ function CartDetails() {
         </div>
       </ul>
       <div className="mb-4">
-        <label className="block text-sm font-medium">Name</label>
+        <label className="block text-sm font-medium">Namn</label>
         <input
           type="text"
           className="px-4 py-2 border border-gray-300 rounded-md"
@@ -73,7 +73,7 @@ function CartDetails() {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium">Email</label>
+        <label className="block text-sm font-medium">E-post</label>
         <input
           type="email"
           className="px-4 py-2 border border-gray-300 rounded-md"
@@ -83,7 +83,7 @@ function CartDetails() {
       </div>
 
       <div className="mb-4">
-        <label className="block text-sm font-medium">Address</label>
+        <label className="block text-sm font-medium">Gata</label>
         <input
           type="text"
           className="px-4 py-2 border border-gray-300 rounded-md"
@@ -91,7 +91,14 @@ function CartDetails() {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium">Country</label>
+        <label className="block text-sm font-medium">Postnummer</label>
+        <input
+          type="text"
+          className="px-4 py-2 border border-gray-300 rounded-md"
+          value={userDetails.country}
+        />
+      </div><div className="mb-4">
+        <label className="block text-sm font-medium">Stad</label>
         <input
           type="text"
           className="px-4 py-2 border border-gray-300 rounded-md"
@@ -99,13 +106,21 @@ function CartDetails() {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium">Shipping Option</label>
+        <label className="block text-sm font-medium">Land</label>
+        <input
+          type="text"
+          className="px-4 py-2 border border-gray-300 rounded-md"
+          value={userDetails.country}
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block text-sm font-medium">Leveransalternativ</label>
         <select
           className="px-4 py-2 border border-gray-300 rounded-md"
           value={userDetails.shippingOption}
           onChange={handleShippingOptionChange}
         >
-          <option value="">Select an option</option>
+          <option value="">Välj ett alternativ</option>
           {shippingMethods.map((option) => (
             <option key={option._id} value={option._id}>
               {option.company}, {option.price} kr, {option.deliveryTimeInHours} timmar
