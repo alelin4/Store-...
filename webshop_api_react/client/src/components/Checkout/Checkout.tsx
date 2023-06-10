@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../Context-reducer/StoreContext";
 import ProductCard from "../ProductCard/ProductCard";
 
-function CartDetails() {
+function Checkout() {
   const [userDetails, setUserDetails] = useState({
     name: "Admin Adminsson",
     email: "admin@admin.se",
@@ -137,4 +137,4 @@ function CartDetails() {
   );
 }
 
-export default CartDetails;
+export default Checkout;

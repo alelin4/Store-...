@@ -1,24 +1,28 @@
 import { useReducer, FormEvent, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 type State = {
   email: string;
   password: string;
   loggedIn: boolean;
   errorMessage: string;
+  previousPath: string | null;
 };
 
 type Action =
   | { type: 'SET_EMAIL'; payload: string }
   | { type: 'SET_PASSWORD'; payload: string }
   | { type: 'SET_LOGGED_IN'; payload: boolean }
-  | { type: 'SET_ERROR'; payload: string };
+  | { type: 'SET_ERROR'; payload: string }
+  | { type: 'SET_PREVIOUS_PATH'; payload: string | null };
 
 const initialState: State = {
   email: '',
   password: '',
   loggedIn: false,
   errorMessage: '',
+  previousPath: null,
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -31,6 +35,8 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, loggedIn: action.payload };
     case 'SET_ERROR':
       return { ...state, errorMessage: action.payload };
+    case 'SET_PREVIOUS_PATH':
+      return { ...state, previousPath: action.payload };
     default:
       return state;
   }
@@ -40,8 +46,7 @@ function Logout({ handleLogout }: { handleLogout: () => void }): JSX.Element {
   return (
     <div className='flex flex-col items-center justify-center gap-4 mt-4 py-2'>
       <h2>Welcome, you are logged in!</h2>
-      <button onClick={handleLogout} className='bg-red-600 text-white text-lg font-medium
-       rounded-lg py-1 px-3'>Logout</button>
+      <button onClick={handleLogout} className='bg-red-600 text-white text-lg font-medium rounded-lg py-1 px-3'>Logout</button>
     </div>
   );
 }
@@ -49,54 +54,66 @@ function Logout({ handleLogout }: { handleLogout: () => void }): JSX.Element {
 function Login(): JSX.Element {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault();
+  // Update the handleSubmit function
+const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+  e.preventDefault();
 
-    if (!state.email || !state.password) {
-      dispatch({ type: 'SET_ERROR', payload: 'Please enter both email and password.' });
-      return;
+  if (!state.email || !state.password) {
+    dispatch({ type: 'SET_ERROR', payload: 'Please enter both email and password.' });
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: state.email, password: state.password }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Wrong email or password');
     }
 
-    try {
-      const response = await fetch('/api/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: state.email, password: state.password }),
-      });
+    dispatch({ type: 'SET_LOGGED_IN', payload: true });
 
-      if (!response.ok) {
-        throw new Error('Wrong email or password');
-      }
+    // Store the authentication token or session ID in a cookie
+    Cookies.set('token', 'YOUR_AUTH_TOKEN_OR_SESSION_ID', { expires: 7 }); // Set an expiration date if desired
 
-      dispatch({ type: 'SET_LOGGED_IN', payload: true });
-
-      localStorage.setItem('email', state.email);
-      localStorage.setItem('password', state.password);
-
-      //navigate('/');
-    } catch (error) {
-      console.error('Error logging in:', error);
-      dispatch({ type: 'SET_ERROR', payload: 'Wrong email or password. Please try again.' });
+   
+    if (state.previousPath === '/cart') {
+      // Redirect to the checkout page if coming from the cart
+      navigate('/checkout');
+    } else {
+      // Redirect to the homepage by default
+      navigate('/');
     }
-  };
+  } catch (error) {
+    console.error('Error logging in:', error);
+    dispatch({ type: 'SET_ERROR', payload: 'Wrong email or password. Please try again.' });
+  }
+};
+
 
   const handleLogout = (): void => {
-    localStorage.removeItem('email');
-    localStorage.removeItem('password');
+    // Remove the authentication token or session ID cookie
+    Cookies.remove('token');
     dispatch({ type: 'SET_LOGGED_IN', payload: false });
     navigate('/login');
   };
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem('email');
-    const storedPassword = localStorage.getItem('password');
+    const token = Cookies.get('token');
 
-    if (storedEmail && storedPassword) {
+    if (token) {
       dispatch({ type: 'SET_LOGGED_IN', payload: true });
-      //navigate('/');
+    }
+
+    if (location.state?.from) {
+      dispatch({ type: 'SET_PREVIOUS_PATH', payload: location.state.from });
     }
   }, []);
 
