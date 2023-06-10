@@ -59,9 +59,18 @@ function Checkout() {
     }
 
     const orderData = {
-      userDetails,
-      products,
-      totalWithShipping,
+      orderItems: products.map((product) => ({
+        product: product.id,
+        quantity: product.quantity,
+        price: product.price * product.quantity,
+      })),
+      deliveryAddress: {
+        street: userDetails.address,
+        zipcode: userDetails.zipcode,
+        city: userDetails.city,
+        country: userDetails.country,
+      },
+      shippingMethod: userDetails.shippingOption,
     };
 
     fetch("/api/orders", {
@@ -85,122 +94,110 @@ function Checkout() {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Checkout</h1>
+      <h1 className="text-2xl font-bold mb-4">Kassa</h1>
       <ul className="mb-4">
         <div>
           <div className="flex flex-row items-center justify-between mt-2 py-6 px-3 text-xl font-medium">
-            <h2 className="text-2xl font-bold ">Dina Produkter</h2>
-            <p> Pris för produkter: {total}:-</p>
+            <h2 className="text-2xl font-bold ">Dina produkter</h2>
+            <p>Product Price: {total}:-</p>
           </div>
           {products.map((product) => (
             <ProductCard product={product} key={product.id} />
           ))}
         </div>
       </ul>
-      <div className="grid grid-cols-2 gap-4">
-      <div className="border border-gray-200 rounded-md p-4">
+      <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className=" p-2 border border-gray-200 rounded-lg">
+          <h2 className="text-xl font-bold mb-2">Levernasinformation</h2>
           <div className="mb-4">
-            <h2 className="text-2xl font-bold pt-3 mb-4">
-              Leveransinformation
-            </h2>
-
-            <label className="block text-sm font-medium">Namn</label>
+            <label className="block mb-2" htmlFor="name">
+              Namn:
+            </label>
             <input
               type="text"
-              className="px-4 py-2 border border-gray-300 rounded-md"
+              id="name"
               value={userDetails.name}
-              readOnly
+              disabled
+              className="w-full p-2 border border-gray-300"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium">E-post</label>
+            <label className="block mb-2" htmlFor="email">
+              E-post:
+            </label>
             <input
               type="email"
-              className="px-4 py-2 border border-gray-300 rounded-md"
+              id="email"
               value={userDetails.email}
-              readOnly
+              disabled
+              className="w-full p-2 border border-gray-300"
             />
           </div>
-
           <div className="mb-4">
-            <label className="block text-sm font-medium">Gata</label>
+            <label className="block mb-2" htmlFor="address">
+              Adress:
+            </label>
             <input
               type="text"
-              className="px-4 py-2 border border-gray-300 rounded-md"
+              id="address"
               value={userDetails.address}
               onChange={(e) =>
                 setUserDetails({ ...userDetails, address: e.target.value })
               }
-              required
+              className="w-full p-2 border border-gray-300"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium">Postnummer</label>
+            <label className="block mb-2" htmlFor="country">
+              Land:
+            </label>
             <input
               type="text"
-              className="px-4 py-2 border border-gray-300 rounded-md"
+              id="country"
               value={userDetails.country}
               onChange={(e) =>
                 setUserDetails({ ...userDetails, country: e.target.value })
               }
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium">Stad</label>
-            <input
-              type="text"
-              className="px-4 py-2 border border-gray-300 rounded-md"
-              value={userDetails.country}
-              onChange={(e) =>
-                setUserDetails({ ...userDetails, country: e.target.value })
-              }
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium">Land</label>
-            <input
-              type="text"
-              className="px-4 py-2 border border-gray-300 rounded-md"
-              value={userDetails.country}
-              onChange={(e) =>
-                setUserDetails({ ...userDetails, country: e.target.value })
-              }
-              required
+              className="w-full p-2 border border-gray-300"
             />
           </div>
         </div>
-        <div className="border border-gray-200 rounded-md p-4">
-          <div className="mb-4">
-            <h2 className="text-2xl font-bold pt-3 mb-4">Leveransalternativ</h2>
-            {shippingMethods.map((option) => (
-              <label
-                key={option._id}
-                className="flex space-x-2 pt-3 px-4 py-2 mb-2 border border-gray-300 rounded-md"
-              >
-                <input
-                  type="radio"
-                  value={option._id}
-                  checked={userDetails.shippingOption === option._id}
-                  onChange={handleShippingOptionChange}
-                  required
-                />
-                <span>
-                  {option.company}, {option.price} kr,{" "}
-                  {option.deliveryTimeInHours} timmar
-                </span>
+        <div className=" p-2 border border-gray-200 rounded-lg">
+          <h2 className="text-xl font-bold mb-2">Leveransmetod</h2>
+          {shippingMethods.map((shippingOption) => (
+            <div
+              key={shippingOption._id}
+              className="border border-gray-200 rounded-lg mb-3 py-3 px-2"
+            >
+              <input
+                type="radio"
+                id={shippingOption._id}
+                name="shippingOption"
+                value={shippingOption._id}
+                checked={userDetails.shippingOption === shippingOption._id}
+                onChange={handleShippingOptionChange}
+              />
+              <label htmlFor={shippingOption._id} className="ml-2">
+                {shippingOption.company} - {shippingOption.price}:-{" "}
+                {shippingOption.deliveryTimeInHours} timmar
               </label>
-            ))}
-            <h2 className="text-1xl font-semibold pt-3 mb-4">Total summa med frakt: {totalWithShipping}:-</h2>
-          </div>
-          <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
-            onClick={placeOrder}
-          >
-            Place Order
-          </button>
+            </div>
+          ))}
         </div>
+      </div>
+      <div className="flex justify-between">
+        <button
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
+          onClick={() => navigate(-1)}
+        >
+          Tillbaka
+        </button>
+        <button
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
+          onClick={placeOrder}
+        >
+          Lägg bestälning{" "}
+        </button>
       </div>
     </div>
   );
