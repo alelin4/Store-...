@@ -6,6 +6,7 @@ import Home from "../Home/Home";
 import CartDetails from "../CartDetails/CartDetails";
 import Checkout from "../Checkout/Checkout";
 import Login from "../Login/Login";
+import OrderConfirmation from "../OrderConfirmation/OrderConfirmation";
 
 function Main() {
   return (
@@ -18,6 +19,7 @@ function Main() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/order-confirmation" element={<OrderConfirmation />} />
       </Routes>
     </div>
   );
