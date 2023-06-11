@@ -1,5 +1,5 @@
 import { useReducer, FormEvent, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
 type State = {
@@ -131,14 +131,14 @@ function Login(): JSX.Element {
   }
 
   return (
-    <div className=" flex flex-col items-center justify-center gap-4 mt-4 py-2">
+    <div className=" flex flex-col items-center justify-center gap-4 mt-3 py-2">
       <div className="m-5 mb-6 p-5 border border-gray-200 rounded-lg">
-        <h2 className="flex flex-col items-center justify-center gap-4 mt-4 py-2 text-2xl font-bold mb-4">
+        <h2 className="flex flex-col items-center justify-center gap-4 mt-2 py-2 text-2xl font-bold">
           Logga in
         </h2>
         <form
           onSubmit={handleSubmit}
-          className="m-5 flex flex-col items-center justify-center gap-4 mt-4 py-2 px-5"
+          className="m-2 flex flex-col items-center justify-center gap-4 mt-4 py-2 px-5"
         >
           {state.errorMessage && <div>{state.errorMessage}</div>}
           <div>
@@ -180,6 +180,15 @@ function Login(): JSX.Element {
             >
               Logga in
             </button>
+          </div>
+          <div>
+            <p>
+              <Link to={"/register"}>
+                <button className="mt-3 bg-white text-blue-600 text-m font-medium rounded-lg py-1">
+                  Skapa ett konto{" "}
+                </button>
+              </Link>
+            </p>
           </div>
           <p className="text-red-500 text-center">{state.errorMessage}</p>
         </form>
