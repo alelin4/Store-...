@@ -7,6 +7,7 @@ import CartDetails from "../CartDetails/CartDetails";
 import Checkout from "../Checkout/Checkout";
 import Login from "../Login/Login";
 import OrderConfirmation from "../OrderConfirmation/OrderConfirmation";
+import Register from "../Register/Register";
 
 function Main() {
   return (
@@ -15,6 +16,7 @@ function Main() {
         <Route path="/" element={<Home />} />
         <Route path="/:id" element={<ProductDetails />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<CartDetails />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/about" element={<About />} />
