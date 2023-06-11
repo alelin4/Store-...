@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { StoreContext } from "../../Context-reducer/StoreContext";
 import ProductCard from "../ProductCard/ProductCard";
 import { Link } from "react-router-dom";
 import Cookies from 'js-cookie';
+import { GrCart } from "react-icons/gr";
 
 function CartDetails() {
   const { products, total } = useContext(StoreContext);
@@ -12,7 +13,12 @@ function CartDetails() {
     <div className="p-10 mx-auto px-8 border border-gray-200 rounded-lg">
       <h1 className="text-2xl font-bold p-5">Varukorg</h1>
       {products.length === 0 ? (
-        <p className="text-xl">Din varukorg är tom</p>
+        <div>
+          <p className="text-xl p-6">Din varukorg är tom.</p>
+          <div className="p-6 text-9xl bg-white">
+          <GrCart />
+        </div>
+        </div>
       ) : (
         <ul className="mb-4">
           <div>
