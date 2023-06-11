@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context-reducer/StoreContext";
 import ProductCard from "../ProductCard/ProductCard";
 
 function Checkout() {
   const [userDetails, setUserDetails] = useState({
-    name: "Admin Adminsson",
-    email: "admin@admin.se",
+    name: "",
+    email: "",
     street: "",
     zipcode: "",
     city: "",
@@ -51,7 +51,7 @@ function Checkout() {
 
   const validateForm = () => {
     let isValid = true;
-    const errors = {};
+    const errors = {street, zipcode, city, country, shippingOption};
 
     if (!userDetails.street) {
       errors.street = "Vänligen ange en gatuadress.";
