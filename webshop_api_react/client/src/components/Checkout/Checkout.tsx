@@ -5,7 +5,8 @@ import ProductCard from "../ProductCard/ProductCard";
 
 function Checkout() {
   const [userDetails, setUserDetails] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     street: "",
     zipcode: "",
@@ -51,7 +52,7 @@ function Checkout() {
 
   const validateForm = () => {
     let isValid = true;
-    const errors = {street, zipcode, city, country, shippingOption};
+    const errors = { street, zipcode, city, country, shippingOption };
 
     if (!userDetails.street) {
       errors.street = "Vänligen ange en gatuadress.";
@@ -122,6 +123,24 @@ function Checkout() {
         // Handle error state if needed
       });
   };
+  useEffect(() => {
+    // Fetch user details from MongoDB when the component mounts
+    fetch("/api/users/authorize") // Replace with the actual API endpoint to retrieve user data
+      .then((response) => response.json())
+      .then((data) => {
+        // Assuming the response contains the user details (firstName, lastName, email)
+        setUserDetails({
+          ...userDetails,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error state if needed
+      });
+  }, []);
 
   return (
     <div className="p-8">
@@ -147,12 +166,12 @@ function Checkout() {
             <input
               type="text"
               id="name"
-              value={userDetails.name}
+              value={`${userDetails.firstName} ${userDetails.lastName}`}
               disabled
               className="w-full p-2 border border-gray-200 rounded-lg"
             />
           </div>
-          <div className=" m-2 mb-4">
+          <div className="m-2 mb-4">
             <label className="block mb-2" htmlFor="email">
               E-post:
             </label>
