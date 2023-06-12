@@ -2,7 +2,8 @@ import { StoreContext } from "../../Context-reducer/StoreContext";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
-import AddToCartButton from "../AddToCartBtn/AddToCartBtn";
+import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
+import RemoveFromCartBtn from "../RemoveFromCartBtn/RemoveFromCartBtn"
 
 interface Product {
   _id: string;
@@ -15,7 +16,18 @@ interface Product {
 
 function ProductList(): JSX.Element {
   const [products, setProducts] = useState<Product[]>([]);
-  const { addToCart } = useContext(StoreContext);
+  const { addToCart, removeFromCart } = useContext(StoreContext);
+ 
+  
+
+  const handleAdd = (product: Product): void => {
+    addToCart(product);
+  };
+
+  const handleRemove = (product: Product): void => {
+    removeFromCart(product);
+  }
+
 
   useEffect(() => {
     fetchProducts();
@@ -36,9 +48,7 @@ function ProductList(): JSX.Element {
     }
   };
 
-  const handleAdd = (product: Product): void => {
-    addToCart(product);
-  };
+
 
   return (
     <>
@@ -53,7 +63,8 @@ function ProductList(): JSX.Element {
             <Link to={`/${product._id}`}>
               <ProductCard product={product} />
             </Link>
-            <AddToCartButton onClick={() => handleAdd(product)} />
+            <AddToCartBtn onClick={() => handleAdd(product)} />
+            <RemoveFromCartBtn onClick={() => handleRemove(product)}/>
           </div>
         ))}
       </div>

@@ -8,9 +8,9 @@ const AddToCartButton: React.FunctionComponent<AddToCartButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className="bg-indigo-500 text-white text-lg font-medium rounded-full"
+      className="bg-indigo-500 text-white text-lg font-medium rounded-full hover:opacity-50"
     >
-      Köp +
+       Plus +
     </button>
   );
 };

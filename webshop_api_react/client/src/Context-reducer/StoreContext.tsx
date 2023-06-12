@@ -37,16 +37,22 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
   };
 
   const removeFromCart = (product: Product) => {
-    const updatedCart = state.products.filter(
-      (currentProduct) => currentProduct._id !== product._id
+    const productIndex = state.products.findIndex(
+      (currentProduct) => currentProduct._id === product._id
     );
-    updatedPrice(updatedCart);
-
-    dispatch({
-      type: "remove",
-      payload: updatedCart,
-    });
+  
+    if (productIndex !== -1) {
+      const updatedCart = [...state.products];
+      updatedCart.splice(productIndex, 1);
+      updatedPrice(updatedCart);
+  
+      dispatch({
+        type: "remove",
+        payload: updatedCart,
+      });
+    }
   };
+  
 
   const updatedPrice = (products: Product[]) => {
     let total = 0;
