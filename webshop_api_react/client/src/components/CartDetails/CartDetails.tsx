@@ -1,38 +1,44 @@
-import { useContext } from "react";
-import { StoreContext } from "../../Context-reducer/StoreContext"
-import ProductCard  from "../ProductCard/ProductCard";
-import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
-import RemoveFromCartBtn from "../RemoveFromCartBtn/RemoveFromCartBtn"
+import React, { useContext } from "react";
+import { StoreContext } from "../../Context-reducer/StoreContext";
+import ProductCard from "../ProductCard/ProductCard";
+import { Link } from "react-router-dom";
+import Cookies from 'js-cookie';
+import { GrCart } from "react-icons/gr";
 
 function CartDetails() {
-  const { addToCart, removeFromCart } = useContext(StoreContext);
-  
+  const { products, total } = useContext(StoreContext);
+  const isLoggedIn = Cookies.get('token') !== undefined;
 
-  const handleAdd = (product: Product): void => {
-    addToCart(product);
-  };
-
-  const handleRemove = (product: Product): void => {
-    removeFromCart(product);
-  };
-  
-
-  const {products, total} = useContext(StoreContext)
   return (
-    <div>
-    
-      <div className="flex flex-row items-center
-      justify-between mt-2 py-6 px-10 text-xl font-medium">
-      <h2>Dina Produkter</h2>
-      <p> Total: Kr{total}</p>
-      </div>
-      {products.map((product) =>
-      <><ProductCard product={product} />
-      <AddToCartBtn onClick={() => handleAdd(product)} /> 
-      <RemoveFromCartBtn onClick={() => handleRemove(product)}/></>
+    <div className="p-10 mx-auto px-8 border border-gray-200 rounded-lg">
+      <h1 className="text-2xl font-bold p-5">Varukorg</h1>
+      {products.length === 0 ? (
+        <div>
+          <p className="text-xl p-6">Din varukorg är tom.</p>
+          <div className="p-6 text-9xl bg-white">
+          <GrCart />
+        </div>
+        </div>
+      ) : (
+        <ul className="mb-4">
+          <div>
+            <div className="flex flex-row items-center justify-between mt-2 py-6 px-10 text-xl font-medium">
+              <h2>Dina Produkter</h2>
+              <p> Pris för produkter: {total}:-</p>
+            </div>
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </ul>
       )}
-      
-    
+      {products.length > 0 && (
+        <Link to={isLoggedIn ? "/checkout" : "/login"}>
+          <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md">
+            {isLoggedIn ? "Till kassan" : "Logga in för att fortsätta"}
+          </button>
+        </Link>
+      )}
     </div>
   );
 }
