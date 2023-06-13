@@ -33,7 +33,7 @@ function Checkout() {
 
   const [errors, setErrors] = useState<Partial<UserDetails>>({}); // Track form validation errors
   const navigate = useNavigate();
-  const { products, total } = useContext(StoreContext);
+  const { products, total, addToCart, removeFromCart, removeItemFromCart } = useContext(StoreContext);
   const [shippingMethods, setShippingMethods] = useState<ShippingMethod[]>([]);
   const [shippingPrice, setShippingPrice] = useState(0);
   const totalWithShipping = total + shippingPrice;
@@ -49,6 +49,7 @@ function Checkout() {
         console.error(error);
       });
   }, [total]);
+
 
   const handleShippingOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedShippingOption = shippingMethods.find(
@@ -159,7 +160,7 @@ function Checkout() {
   const getProductPrice = (productId) => {
     const product = products.find((product) => product._id === productId);
     if (product) {
-      return product.price * 1;
+      return product.price * getProductCount(productId);
     }
     return 0;
   };
@@ -169,13 +170,31 @@ function Checkout() {
     ).length;
     return count;
   };
- const getProductName = (productId) => {
+  const getProductName = (productId) => {
     const product = products.find((product) => product._id === productId);
     return product ? product.title : "";
   };
+  const handleRemoveQuantity = (productId) => {
+    const product = products.find((product) => product._id === productId);
+    if (product) {
+      removeFromCart(product);
+    }
+  };
+  const handleAddQuantity = (productId) => {
+    const product = products.find((product) => product._id === productId);
+    if (product) {
+      addToCart(product);
+    }
+  };
+  const handleRemoveItem = (productId) => {
+    const filteredProducts = products.filter(
+      (product) => product._id === productId
+    );
+    filteredProducts.forEach((product) => removeItemFromCart(product));
+  };
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Kassa</h1>
+    <div className="max-w-5xl	p-6 pt-9 pb-9 mt-9 mb-9 mx-auto border border-gray-200 rounded-lg">
+      <h1 className="text-2xl font-bold  text-center ">Kassa</h1>
       <ul className="mb-4">
         <div>
           <div className="flex flex-row items-center justify-between mt-2 py-6 px-10 text-xl font-medium">
@@ -187,44 +206,44 @@ function Checkout() {
               (productId) => {
                 const product = products.find((p) => p._id === productId);
                 return (
-                  <li key={productId} className="p-2">
-                  <div className="flex items-center">
-                    {product && product.image && (
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-16 h-16 mr-4"
-                      />
-                    )}
-                    <div>
-                      <p>
-                        <h3>{getProductName(productId)}</h3>
-                        <h4>
-                          Price: {getProductPrice(productId)}{" "}
-                        </h4>
-                        <button
-                          className="px-2 border border-gray-400 rounded"
-                          onClick={() => handleRemoveQuantity(productId)}
-                        >
-                          -
-                        </button>{" "}
-                        {getProductCount(productId)}{" "}
-                        <button
-                          className="px-2 border border-gray-400 rounded"
-                          onClick={() => handleAddQuantity(productId)}
-                        >
-                          +
-                        </button>
-                        <button
-                          className="px-2 ml-2 text-red-500"
-                          onClick={() => handleRemoveItem(productId)}
-                        >
-                          <GrTrash/>
-                        </button>
-                      </p>
-                    </div>
-                  </div>
-                </li>
+                  <li key={productId} className="p-2 mb-3 mt-3 border-b">
+                    <div className="flex items-center">
+                      <button
+                        className="px-2 ml-7 mr-7"
+                        onClick={() => handleRemoveQuantity(productId)}
+                      >
+                        <GrTrash />
+                      </button>
+                      {product && product.image && (
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-16 h-16 mr-8"
+                        />
+                      )}
+                      <div className="mr-9">
+                      
+                          <h3>{getProductName(productId)}</h3>
+                          <h4>{product.price}:-</h4>
+                        </div><div className="ml-9 mr-2">
+                          <button
+                            className="px-2 border border-gray-400 rounded mr-2"
+                            onClick={() => handleRemoveItem(productId)}
+                          >
+                            -
+                          </button>{" "}
+                          {getProductCount(productId)}{" "}
+                          <button
+                            className="px-2 border border-gray-400 rounded ml-2 mr-9"
+                            onClick={() => handleAddQuantity(productId)}
+                          >
+                            +
+                          </button></div>
+                          <div>{getProductPrice(productId)}:-</div>
+                        
+                      </div>
+                   
+                  </li>
                 );
               }
             )}
