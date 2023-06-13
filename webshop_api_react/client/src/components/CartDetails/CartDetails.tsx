@@ -1,51 +1,55 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { StoreContext } from "../../Context-reducer/StoreContext";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { GrCart, GrTrash } from "react-icons/gr";
+import { Key } from "react";
+
+
+
 
 function CartDetails() {
   const { products, total, addToCart, removeFromCart } =
     useContext(StoreContext);
   const isLoggedIn = Cookies.get("token") !== undefined;
 
-  const getProductCount = (productId) => {
+  const getProductCount = (productId:string) => {
     const count = products.filter(
-      (product) => product._id === productId
+      (product: { _id: string; }) => product._id === productId
     ).length;
     return count;
   };
 
-  const getProductPrice = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const getProductPrice = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       return product.price * getProductCount(productId);
     }
     return 0;
   };
 
-  const handleAddQuantity = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const handleAddQuantity = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       addToCart(product);
     }
   };
 
-  const handleRemoveQuantity = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const handleRemoveQuantity = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       removeFromCart(product);
     }
   };
 
-  const handleRemoveItem = (productId) => {
+  const handleRemoveItem = (productId: unknown) => {
     const filteredProducts = products.filter(
-      (product) => product._id === productId
+      (product: { _id: any; }) => product._id === productId
     );
-    filteredProducts.forEach((product) => removeFromCart(product));
+    filteredProducts.forEach((product: any) => removeFromCart(product));
   };
-  const getProductName = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const getProductName = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     return product ? product.title : "";
   };
 
@@ -66,13 +70,13 @@ function CartDetails() {
             <p> Pris för produkter: {total}:-</p>
           </div>
           <ul className="mb-4">
-            {Array.from(new Set(products.map((product) => product._id))).map(
+            {Array.from(new Set(products.map((product: { _id: any; }) => product._id))).map(
               (productId) => {
                 const product = products.find(
-                  (product) => product._id === productId
+                  (product: { _id: unknown; }) => product._id === productId
                 );
                 return (
-                  <li key={productId} className="p-2">
+                  <li key={productId as Key} className="p-2">
                     <div className="flex items-center">
                       {product && product.image && (
                         <img

@@ -3,31 +3,27 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
-import RemoveFromCartBtn from "../RemoveFromCartBtn/RemoveFromCartBtn"
+import RemoveFromCartBtn from "../RemoveFromCartBtn/RemoveFromCartBtn";
 
 interface Product {
   _id: string;
   price: number;
   description: string;
   title: string;
-  image: string; // Change URL to string
-  // Add other product properties here
+  image: URL;
 }
 
 function ProductList(): JSX.Element {
   const [products, setProducts] = useState<Product[]>([]);
-  const { addToCart, removeFromCart } = useContext(StoreContext);
- 
-  
+  const { addToCart, removeFromCart } = useContext(StoreContext) ?? {};
 
   const handleAdd = (product: Product): void => {
-    addToCart(product);
+    addToCart && addToCart(product);
   };
 
   const handleRemove = (product: Product): void => {
-    removeFromCart(product);
-  }
-
+    removeFromCart && removeFromCart(product);
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -48,8 +44,6 @@ function ProductList(): JSX.Element {
     }
   };
 
-
-
   return (
     <>
       <div>
@@ -64,7 +58,7 @@ function ProductList(): JSX.Element {
               <ProductCard product={product} />
             </Link>
             <AddToCartBtn onClick={() => handleAdd(product)} />
-            <RemoveFromCartBtn onClick={() => handleRemove(product)}/>
+            <RemoveFromCartBtn onClick={() => handleRemove(product)} />
           </div>
         ))}
       </div>
