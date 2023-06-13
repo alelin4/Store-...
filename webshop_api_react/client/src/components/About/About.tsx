@@ -13,7 +13,7 @@ function About() {
       En god natts sömn är väsentligt för att klara dagen och vi ge dig alla förutsättningar du behöver för att starta på topp. 
       Vi brinner för att hitta rätt säng för varje persons unika behov och allt görs med omtanke för dig, sömnen och för livet. 
       Vi värnar om vår natur och tar därför ansvar för vår miljöpåverkan genom kontroll i alla led. Våra sängar tillverkas först efter 
-      beställning vilket betyder att ingen säng tillverkas i onödan. Din säng levereras sedan hela vägen hem till dig, helt utan mellanhänder, 
+      beställning vilket innebär att ingen säng tillverkas i onödan. Din säng levereras sedan hela vägen hem till dig, helt utan mellanhänder, 
       från beställning och hela vägen in till ditt sovrum. SÅ hos oss hittar en säng som passar just dig!</p>
       </div>
     </ErrorBoundry>
