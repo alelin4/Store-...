@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { StoreContext, Product } from "../../Context-reducer/StoreContext";
+import { GrTrash } from "react-icons/gr";
 
 interface UserDetails {
   firstName: string;
@@ -168,7 +169,10 @@ function Checkout() {
     ).length;
     return count;
   };
-
+ const getProductName = (productId) => {
+    const product = products.find((product) => product._id === productId);
+    return product ? product.title : "";
+  };
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">Kassa</h1>
@@ -180,16 +184,49 @@ function Checkout() {
           </div>
           <ul className="mb-4">
             {Array.from(new Set(products.map((product) => product._id))).map(
-              (productId) => (
-                <li key={productId} className="p-2">
-                  <p>
-                    Product ID: {productId}, Quantity:{" "}
-                    {getProductCount(productId)}, product price:{" "}
-                    {getProductPrice(productId)} , Total:{" "}
-                    {totalProductPrice(productId)}
-                  </p>
+              (productId) => {
+                const product = products.find((p) => p._id === productId);
+                return (
+                  <li key={productId} className="p-2">
+                  <div className="flex items-center">
+                    {product && product.image && (
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-16 h-16 mr-4"
+                      />
+                    )}
+                    <div>
+                      <p>
+                        <h3>{getProductName(productId)}</h3>
+                        <h4>
+                          Price: {getProductPrice(productId)}{" "}
+                        </h4>
+                        <button
+                          className="px-2 border border-gray-400 rounded"
+                          onClick={() => handleRemoveQuantity(productId)}
+                        >
+                          -
+                        </button>{" "}
+                        {getProductCount(productId)}{" "}
+                        <button
+                          className="px-2 border border-gray-400 rounded"
+                          onClick={() => handleAddQuantity(productId)}
+                        >
+                          +
+                        </button>
+                        <button
+                          className="px-2 ml-2 text-red-500"
+                          onClick={() => handleRemoveItem(productId)}
+                        >
+                          <GrTrash/>
+                        </button>
+                      </p>
+                    </div>
+                  </div>
                 </li>
-              )
+                );
+              }
             )}
           </ul>
         </div>

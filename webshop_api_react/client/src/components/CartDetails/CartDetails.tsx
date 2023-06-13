@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { StoreContext } from "../../Context-reducer/StoreContext";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { GrCart } from "react-icons/gr";
+import { GrCart, GrTrash } from "react-icons/gr";
 
 function CartDetails() {
   const { products, total, addToCart, removeFromCart } =
@@ -44,6 +44,10 @@ function CartDetails() {
     );
     filteredProducts.forEach((product) => removeFromCart(product));
   };
+  const getProductName = (productId) => {
+    const product = products.find((product) => product._id === productId);
+    return product ? product.title : "";
+  };
 
   return (
     <div className="p-10 mx-auto px-8 border border-gray-200 rounded-lg">
@@ -63,36 +67,49 @@ function CartDetails() {
           </div>
           <ul className="mb-4">
             {Array.from(new Set(products.map((product) => product._id))).map(
-              (productId) => (
-                <li key={productId} className="p-2">
-                  <p>
-                    Product ID: {productId}, Quantity:{" "}
-                    <button
-                      className="px-2 border border-gray-400 rounded"
-                      onClick={() => handleRemoveQuantity(productId)}
-                    >
-                      -
-                    </button>{" "}
-                    {getProductCount(productId)}{" "}
-                    <button
-                      className="px-2 border border-gray-400 rounded"
-                      onClick={() => handleAddQuantity(productId)}
-                    >
-                      +
-                    </button>
-                    <button
-                      className="px-2 ml-2 text-red-500"
-                      onClick={() => handleRemoveItem(productId)}
-                    >
-                      Remove
-                    </button>
-                  </p>
-                  <p>
-                    Price: {getProductPrice(productId)}{" "}
-                    {/* Assuming the price is in SEK */}
-                  </p>
-                </li>
-              )
+              (productId) => {
+                const product = products.find(
+                  (product) => product._id === productId
+                );
+                return (
+                  <li key={productId} className="p-2">
+                    <div className="flex items-center">
+                      {product && product.image && (
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-16 h-16 mr-4"
+                        />
+                      )}
+                      <div>
+                        <p>
+                          <h3>{getProductName(productId)}</h3>
+                          <h4>Price: {getProductPrice(productId)} </h4>
+                          <button
+                            className="px-2 border border-gray-400 rounded"
+                            onClick={() => handleRemoveQuantity(productId)}
+                          >
+                            -
+                          </button>{" "}
+                          {getProductCount(productId)}{" "}
+                          <button
+                            className="px-2 border border-gray-400 rounded"
+                            onClick={() => handleAddQuantity(productId)}
+                          >
+                            +
+                          </button>
+                          <button
+                            className="px-2 ml-2 text-red-500"
+                            onClick={() => handleRemoveItem(productId)}
+                          >
+                            <GrTrash />
+                          </button>
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                );
+              }
             )}
           </ul>
         </div>
