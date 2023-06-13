@@ -1,12 +1,12 @@
-function CartProduct({ product }) {
+function CartProduct({ cartItem }) {
   return (
     <>
       <div>
-        <img src={product.image} />
+        <img src={cartItem.image} />
       </div>
       <div>
-        <p>{product.title}</p>
-        <p>{product.price}</p>
+        <p>{cartItem.title}</p>
+        <p>{cartItem.price}</p>
       </div>
     </>
   );

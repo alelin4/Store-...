@@ -1,5 +1,6 @@
-import React, { createContext, useReducer, ReactNode } from "react";
+import React, { createContext, useReducer, ReactNode, useEffect } from "react";
 import reducer, { initialState } from "./storeReducer";
+import { useLocalStorage } from "../components/hooks/useLocalStorage";
 
 interface StoreProviderProps {
   children: ReactNode;
@@ -11,7 +12,6 @@ interface Product {
   description: string;
   title: string;
   image: URL;
-  // Add other product properties here
 }
 
 interface StoreContextValue {
@@ -25,35 +25,40 @@ export const StoreContext = createContext<StoreContextValue | null>(null);
 
 export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  
+const [cartItem ,setCartItem] = useLocalStorage('cartItem', [])
 
+//Call the UpdatedPrice everytime we use cartItem
+useEffect(() => {
+  updatedPrice(cartItem);
+}, [cartItem]);
+
+
+//Add to product to cart and localstorage using useLocalStorage
   const addToCart = (product: Product) => {
-    const updatedCart = [...state.products, product];
+    const updatedCart = [...cartItem, product];
     updatedPrice(updatedCart);
 
-    dispatch({
-      type: "add",
-      payload: updatedCart,
-    });
+    setCartItem(updatedCart);
+
   };
 
+  //Remove product to cart and localstorage using useLocalStorage
   const removeFromCart = (product: Product) => {
-    const productIndex = state.products.findIndex(
+    const productIndex = cartItem.findIndex(
       (currentProduct) => currentProduct._id === product._id
     );
   
     if (productIndex !== -1) {
-      const updatedCart = [...state.products];
+      const updatedCart = [...cartItem];
       updatedCart.splice(productIndex, 1);
       updatedPrice(updatedCart);
   
-      dispatch({
-        type: "remove",
-        payload: updatedCart,
-      });
+      setCartItem(updatedCart);
     }
   };
   
-
+//Update price everytime cartItem is called
   const updatedPrice = (products: Product[]) => {
     let total = 0;
     products.forEach((product) => {
@@ -68,7 +73,7 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
 
   const value: StoreContextValue = {
     total: state.total,
-    products: state.products,
+    products: cartItem,
     addToCart,
     removeFromCart,
   };
