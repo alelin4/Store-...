@@ -1,5 +1,4 @@
 import ProductsList from "../ProductsList/ProductsList";
-import ProductCard from "../ProductCard/ProductCard";
 import ErrorBoundry from "../../Errorboundry";
 
 function Home() {
@@ -13,13 +12,8 @@ function Home() {
             alt=""
           />
         </ErrorBoundry>
-        <ErrorBoundry></ErrorBoundry>
-
         <ErrorBoundry>
           <ProductsList />
-        </ErrorBoundry>
-        <ErrorBoundry>
-          <ProductCard />
         </ErrorBoundry>
       </div>
     </ErrorBoundry>
