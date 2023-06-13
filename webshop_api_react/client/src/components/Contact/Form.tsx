@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+
 interface FormValues {
     name: string;
+    email: string;
     issue: string;
   }
   
   const SimpleForm: React.FC = () => {
     const [formValues, setFormValues] = useState<FormValues>({
       name: '',
+      email: '',
       issue: '',
     });
   
@@ -19,8 +22,8 @@ interface FormValues {
     };
   
     const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      console.log(formValues); // You can handle the form submission logic here
+    e.preventDefault();
+      console.log(formValues); // Fixa logiken för "skicka här"
     };
   
     return (
@@ -32,6 +35,17 @@ interface FormValues {
             id="name"
             name="name"
             value={formValues.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            value={formValues.email}
             onChange={handleChange}
             required
           />
