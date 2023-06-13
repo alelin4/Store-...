@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
-import RemoveFromCartBtn from "../RemoveFromCartBtn/RemoveFromCartBtn"
+import RemoveFromCartBtn from "../RemoveFromCartBtn/RemoveFromCartBtn";
 
 interface Product {
   _id: string;
@@ -17,8 +17,6 @@ interface Product {
 function ProductList(): JSX.Element {
   const [products, setProducts] = useState<Product[]>([]);
   const { addToCart, removeFromCart } = useContext(StoreContext);
- 
-  
 
   const handleAdd = (product: Product): void => {
     addToCart(product);
@@ -26,8 +24,7 @@ function ProductList(): JSX.Element {
 
   const handleRemove = (product: Product): void => {
     removeFromCart(product);
-  }
-
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -48,25 +45,27 @@ function ProductList(): JSX.Element {
     }
   };
 
-
-
   return (
     <>
-      <div>
-        <h1 className="text-4xl text-center font-semibold mt-2 py-4">
-          Nytt hos oss
-        </h1>
+      <div className="flex justify-center w-full">
+        <div>
+          <h1 className="text-4xl text-center font-semibold mt-2 py-4">
+            Nytt hos oss
+          </h1>
+        </div>
       </div>
-      <div className="flex flex-col items-center gap-3 lg:grid lg:grid-cols-4 p-8">
-        {products.map((product) => (
-          <div key={product._id}>
-            <Link to={`/${product._id}`}>
-              <ProductCard product={product} />
-            </Link>
-            <AddToCartBtn onClick={() => handleAdd(product)} />
-            <RemoveFromCartBtn onClick={() => handleRemove(product)}/>
-          </div>
-        ))}
+      <div className="flex justify-center w-full">
+        <div className="max-w-screen-2xl flex flex-col items-center gap-3 lg:grid lg:grid-cols-4 p-8">
+          {products.map((product) => (
+            <div key={product._id}>
+              <Link to={`/${product._id}`}>
+                <ProductCard product={product} />
+              </Link>
+              <AddToCartBtn onClick={() => handleAdd(product)} />
+              <RemoveFromCartBtn onClick={() => handleRemove(product)} />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

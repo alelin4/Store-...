@@ -48,9 +48,9 @@ const Register = () => {
   });
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 mt-3">
+    <div className="mb-7 flex flex-col items-center justify-center gap-4 mt-3">
       {!isRegistered ? ( // Render the form if not registered
-        <div className="m-5 mb-6 p-3 border border-gray-200 rounded-lg">
+        <div className="m-5 mb-8 p-3 border border-gray-200 rounded-lg">
           <h2 className="flex flex-col items-center justify-center gap-4 mt-4 py-2 text-2xl font-bold mb-4">
             Skapa konto
           </h2>
