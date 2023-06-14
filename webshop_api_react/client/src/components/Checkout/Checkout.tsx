@@ -94,10 +94,13 @@ function Checkout() {
     if (!isValid) {
       return;
     }
+
     const orderItems = products.map((product) => ({
+
       product: product._id,
       quantity: getProductCount(product._id),
     }));
+  
     const orderData = {
       orderItems: orderItems,
       deliveryAddress: {
@@ -108,6 +111,7 @@ function Checkout() {
       },
       shippingMethod: userDetails.shippingOption,
     };
+  
     try {
       const response = await fetch("/api/orders", {
         method: "POST",
@@ -116,11 +120,19 @@ function Checkout() {
         },
         body: JSON.stringify(orderData),
       });
+  
       console.log(orderData);
+  
       if (response.ok) {
-        const order = await response.json();
-        console.log(order); // Log the response data
-        navigate("/order-confirmation", { state: { orderData: order } });
+
+        const data = await response.json();
+        console.log(data); // Log the response data
+  
+        // Clear cart items from local storage
+        localStorage.removeItem("cartItem");
+  
+        navigate("/order-proccessing"); // Navigate to the Order Confirmation page
+
       } else {
         const errorData = await response.json();
         console.error("Error:", errorData.message);
