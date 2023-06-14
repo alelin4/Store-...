@@ -2,8 +2,12 @@ export const initialState = {
   total: 0,
   products: []
 }
+type Action = {
+  type: "add" | "remove" | "update price";
+  payload: any; 
+};
 
-const storeReducer = (state, action) => {
+const storeReducer = (state: typeof initialState, action: Action) => {
   switch (action.type) {
     case "add":
       return {

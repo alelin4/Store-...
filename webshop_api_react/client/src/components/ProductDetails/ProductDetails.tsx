@@ -10,6 +10,7 @@ interface Product {
   description: string;
   title: string;
   image: string;
+  inStock: number;
   // Add other product properties here
 }
 
@@ -22,8 +23,6 @@ function ProductDetails(): JSX.Element {
   const handleAdd = (product: Product): void => {
     addToCart(product);
   };
-
-
 
   useEffect(() => {
     fetchProduct();
@@ -50,17 +49,25 @@ function ProductDetails(): JSX.Element {
 
   return (
     <>
-        <div>
-          <h1 className="text-xl">{product.title}</h1>
-          <p className="text-lg">{product.description}</p>
-          <p className="text-lg">{product.price}</p>
-          <img
-            className="object-contain h-48 w-96"
-            src={product.image}
-            alt=""
-          />
-            <AddToCartBtn onClick={() => handleAdd(product)} />
-        </div>
+      <div>
+        <h1 className="text-xl">{product.title}</h1>
+        <p className="text-lg">{product.description}</p>
+        <p className="text-lg">{product.price}</p>
+        <p
+          className={`text-lg ${
+            product.inStock < 1 ? "text-red-500 italic underline" : ""
+          }`}
+        >
+          {product.inStock < 1
+            ? "Inte i lager"
+            : product.inStock <= 6
+            ? "Fåtal i lager"
+            : "Finns i lager"}
+        </p>
+        <img className="object-contain h-48 w-96" src={product.image} alt="" />
+        <AddToCartBtn onClick={() => handleAdd(product)} />
+
+      </div>
     </>
   );
 }

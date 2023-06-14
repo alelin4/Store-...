@@ -1,51 +1,57 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { StoreContext } from "../../Context-reducer/StoreContext";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { GrCart, GrTrash } from "react-icons/gr";
+import { Key } from "react";
+
+
+
 
 function CartDetails() {
   const { products, total, addToCart, removeFromCart, removeItemFromCart} =
     useContext(StoreContext);
   const isLoggedIn = Cookies.get("token") !== undefined;
 
-  const getProductCount = (productId) => {
+  const getProductCount = (productId:string) => {
     const count = products.filter(
-      (product) => product._id === productId
+      (product: { _id: string; }) => product._id === productId
     ).length;
     return count;
   };
 
-  const getProductPrice = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const getProductPrice = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       return product.price * getProductCount(productId);
     }
     return 0;
   };
 
-  const handleAddQuantity = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const handleAddQuantity = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       addToCart(product);
     }
   };
 
-  const handleRemoveQuantity = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const handleRemoveQuantity = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       removeFromCart(product);
     }
   };
 
-  const handleRemoveItem = (productId) => {
+  const handleRemoveItem = (productId: unknown) => {
     const filteredProducts = products.filter(
-      (product) => product._id === productId
+      (product: { _id: any; }) => product._id === productId
     );
-    filteredProducts.forEach((product) => removeItemFromCart(product));
+    
+    filteredProducts.forEach((product: any) => removeFromCart(product));
+
   };
-  const getProductName = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const getProductName = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     return product ? product.title : "";
   };
 
@@ -67,6 +73,7 @@ function CartDetails() {
           </div>
         </div>
       ) : (
+
         <div className=" flex flex-col items-center justify-center gap-4 mt-3 py-2">
           <div className="w-3/4 max-w-screen-md	 m-5 mb-2 p-7 border border-gray-200 rounded-lg">
             <div className="flex flex-row items-center justify-between mt-2 py-1 px-7 text-xl font-medium">
@@ -120,6 +127,8 @@ function CartDetails() {
                             <h4>{getProductPrice(productId)}:-</h4>
                           </div>
                         </div>
+
+       
                       </div>
                     </li>
                   );

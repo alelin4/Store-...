@@ -12,6 +12,8 @@ interface Product {
   description: string;
   title: string;
   image: URL;
+  inStock: string;
+  quantity: number;
 }
 
 interface StoreContextValue {
@@ -47,7 +49,7 @@ useEffect(() => {
   //Remove product to cart and localstorage using useLocalStorage
   const removeItemFromCart = (product: Product) => {
     const productIndex = cartItem.findIndex(
-      (currentProduct) => currentProduct._id === product._id
+      (currentProduct:Product) => currentProduct._id === product._id
     );
   
     if (productIndex !== -1) {

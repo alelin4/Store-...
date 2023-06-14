@@ -1,3 +1,6 @@
+
+
+
 interface Product {
   _id: string;
   price: number;
@@ -19,6 +22,7 @@ function ProductCard({ product }: ProductCardProps) {
         <div>
           <h1 className="text-xl">{product.title}</h1>
           <p className="text-lg">{product.price} Kr</p>
+          
         </div>
       </div>
     </div>

@@ -1,31 +1,26 @@
-import { StoreContext } from "../../Context-reducer/StoreContext";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
+import { StoreContext } from "../../Context-reducer/StoreContext";
 import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
-import RemoveFromCartBtn from "../RemoveFromCartBtn/RemoveFromCartBtn";
 
 interface Product {
   _id: string;
   price: number;
   description: string;
   title: string;
-  image: string; // Change URL to string
-  // Add other product properties here
+
+  image: URL;
 }
 
+
+
 function ProductList(): JSX.Element {
+
+
+
+
   const [products, setProducts] = useState<Product[]>([]);
-  const { addToCart, removeFromCart } = useContext(StoreContext);
-
-  const handleAdd = (product: Product): void => {
-    addToCart(product);
-  };
-
-  const handleRemove = (product: Product): void => {
-    removeFromCart(product);
-  };
-
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -45,6 +40,18 @@ function ProductList(): JSX.Element {
     }
   };
 
+
+
+
+
+    const { addToCart } = useContext(StoreContext);
+
+  const handleAdd = (product: Product): void => {
+    addToCart(product);
+  };
+
+
+
   return (
     <>
       <div className="flex justify-center w-full">
@@ -54,6 +61,7 @@ function ProductList(): JSX.Element {
           </h1>
         </div>
       </div>
+
       <div className="flex justify-center w-full">
         <div className="max-w-screen-2xl flex flex-col items-center gap-3 lg:grid lg:grid-cols-4 p-8">
           {products.map((product) => (
@@ -62,10 +70,12 @@ function ProductList(): JSX.Element {
                 <ProductCard product={product} />
               </Link>
               <AddToCartBtn onClick={() => handleAdd(product)} />
-              <RemoveFromCartBtn onClick={() => handleRemove(product)} />
+              
             </div>
           ))}
         </div>
+
+
       </div>
     </>
   );
