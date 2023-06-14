@@ -136,7 +136,8 @@ function Checkout() {
 
         
 
-        navigate("/order-confirmation", { state: { orderData: order } });
+        navigate("/order-confirmation", { state: { orderData: order,
+          userDetails: userDetails, } });
 
 
   
