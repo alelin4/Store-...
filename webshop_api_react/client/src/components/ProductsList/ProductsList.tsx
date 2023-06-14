@@ -13,24 +13,10 @@ interface Product {
   image: URL;
 }
 
-function ProductList(): JSX.Element {
-  const [products, setProducts] = useState<Product[]>([]);
-  const { addToCart} = useContext(StoreContext) ?? {};
 
-  const handleAdd = (product: Product): void => {
-    addToCart && addToCart(product);
-  };
-
-
-  image: string;
-  inStock: number;
-  quantity: number;
-
-  // Change URL to string
-  // Add other product properties here
-}
 
 function ProductList(): JSX.Element {
+
 
 
 
@@ -56,6 +42,8 @@ function ProductList(): JSX.Element {
 
 
 
+
+
     const { addToCart } = useContext(StoreContext);
 
   const handleAdd = (product: Product): void => {
@@ -63,23 +51,31 @@ function ProductList(): JSX.Element {
   };
 
 
+
   return (
     <>
-      <div>
-        <h1 className="text-4xl text-center font-semibold mt-2 py-4">
-          Nytt hos oss
-        </h1>
+      <div className="flex justify-center w-full">
+        <div>
+          <h1 className="text-4xl text-center font-semibold mt-2 py-4">
+            Nytt hos oss
+          </h1>
+        </div>
       </div>
-      <div className="flex flex-col items-center gap-3 lg:grid lg:grid-cols-4 p-8">
-        {products.map((product) => (
-          <div key={product._id}>
-            <Link to={`/${product._id}`}>
-              <ProductCard product={product} />
-            </Link>
-            <div className="flex justify-center space-x-2 mt-2"> 
-            <AddToCartBtn onClick={() => handleAdd(product)} />
-          </div>
-        ))}
+
+      <div className="flex justify-center w-full">
+        <div className="max-w-screen-2xl flex flex-col items-center gap-3 lg:grid lg:grid-cols-4 p-8">
+          {products.map((product) => (
+            <div key={product._id}>
+              <Link to={`/${product._id}`}>
+                <ProductCard product={product} />
+              </Link>
+              <AddToCartBtn onClick={() => handleAdd(product)} />
+              
+            </div>
+          ))}
+        </div>
+
+
       </div>
     </>
   );

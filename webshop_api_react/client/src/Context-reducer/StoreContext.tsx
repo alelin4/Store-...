@@ -21,6 +21,7 @@ interface StoreContextValue {
   products: Product[];
   addToCart: (product: Product) => void;
   removeFromCart: (product: Product) => void;
+  removeItemFromCart: (product: Product) => void;
 }
 
 export const StoreContext = createContext<StoreContextValue | null>(null);
@@ -46,7 +47,7 @@ useEffect(() => {
   };
 
   //Remove product to cart and localstorage using useLocalStorage
-  const removeFromCart = (product: Product) => {
+  const removeItemFromCart = (product: Product) => {
     const productIndex = cartItem.findIndex(
       (currentProduct:Product) => currentProduct._id === product._id
     );
@@ -59,6 +60,15 @@ useEffect(() => {
       setCartItem(updatedCart);
     }
   };
+  const removeFromCart = (product: Product) => {
+    const updatedCart = cartItem.filter(
+      (currentProduct) => currentProduct._id !== product._id
+    );
+  
+    updatedPrice(updatedCart);
+    setCartItem(updatedCart);
+  };
+  
   
 //Update price everytime cartItem is called
   const updatedPrice = (products: Product[]) => {
@@ -78,6 +88,7 @@ useEffect(() => {
     products: cartItem,
     addToCart,
     removeFromCart,
+    removeItemFromCart,
   };
 
   return (
