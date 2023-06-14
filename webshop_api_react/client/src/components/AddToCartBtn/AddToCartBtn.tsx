@@ -9,7 +9,7 @@ const AddToCartButton: React.FunctionComponent<AddToCartButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg text-lg hover:opacity-50"
+      className="bg-Green-500 hover:bg-green-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
     >
        Köp
     </button>

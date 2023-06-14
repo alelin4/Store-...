@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
+import { StoreContext } from "../../Context-reducer/StoreContext";
+import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
 
 interface Product {
   _id: string;
@@ -16,6 +18,8 @@ interface Product {
 }
 
 function ProductList(): JSX.Element {
+
+
   const [products, setProducts] = useState<Product[]>([]);
   useEffect(() => {
     fetchProducts();
@@ -36,6 +40,12 @@ function ProductList(): JSX.Element {
     }
   };
 
+    const { addToCart } = useContext(StoreContext);
+
+  const handleAdd = (product: Product): void => {
+    addToCart(product);
+  };
+
   return (
     <>
       <div>
@@ -49,7 +59,9 @@ function ProductList(): JSX.Element {
             <Link to={`/${product._id}`}>
               <ProductCard product={product} />
             </Link>
-            <div className="flex justify-center space-x-2 mt-2"> </div>
+            <div className="flex justify-center space-x-2 mt-2"> 
+            <AddToCartBtn onClick={() => handleAdd(product)} />
+            </div>
           </div>
         ))}
       </div>

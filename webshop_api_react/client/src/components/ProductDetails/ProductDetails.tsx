@@ -2,7 +2,7 @@ import { StoreContext } from "../../Context-reducer/StoreContext";
 import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import RemoveFromCartBtn from "../RemoveFromCartBtn/RemoveFromCartBtn";
+
 
 interface Product {
   _id: string;
@@ -18,13 +18,10 @@ function ProductDetails(): JSX.Element {
   const [product, setProduct] = useState<Product | null>(null);
   const { id } = useParams();
 
-  const { addToCart, removeFromCart } = useContext(StoreContext);
+  const { addToCart } = useContext(StoreContext);
 
   const handleAdd = (product: Product): void => {
     addToCart(product);
-  };
-  const handleRemove = (product: Product): void => {
-    removeFromCart(product);
   };
 
   useEffect(() => {
@@ -69,7 +66,7 @@ function ProductDetails(): JSX.Element {
         </p>
         <img className="object-contain h-48 w-96" src={product.image} alt="" />
         <AddToCartBtn onClick={() => handleAdd(product)} />
-        <RemoveFromCartBtn onClick={() => handleRemove(product)} />
+
       </div>
     </>
   );
