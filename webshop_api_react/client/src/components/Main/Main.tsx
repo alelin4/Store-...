@@ -8,6 +8,7 @@ import Checkout from "../Checkout/Checkout";
 import Login from "../Login/Login";
 import OrderConfirmation from "../OrderConfirmation/OrderConfirmation";
 import Register from "../Register/Register";
+import OrderProcessing from "../OrderConfirmation/OrderProccessing";
 
 function Main() {
   return (
@@ -19,6 +20,7 @@ function Main() {
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<CartDetails />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/order-proccessing" element={<OrderProcessing />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
