@@ -94,11 +94,13 @@ function Checkout() {
     if (!isValid) {
       return;
     }
+  
     const orderItems = products.map((product: Product) => ({
       product: product._id,
       quantity: getProductCount(product._id), // Get the quantity of the product
       price: product.price * getProductCount(product._id),
     }));
+  
     const orderData = {
       orderItems: orderItems,
       deliveryAddress: {
@@ -109,6 +111,7 @@ function Checkout() {
       },
       shippingMethod: userDetails.shippingOption,
     };
+  
     try {
       const response = await fetch("/api/orders", {
         method: "POST",
@@ -117,11 +120,17 @@ function Checkout() {
         },
         body: JSON.stringify(orderData),
       });
+  
       console.log(orderData);
+  
       if (response.ok) {
         const data = await response.json();
         console.log(data); // Log the response data
-        navigate("/order-confirmation"); // Navigate to the Order Confirmation page
+  
+        // Clear cart items from local storage
+        localStorage.removeItem("cartItem");
+  
+        navigate("/order-proccessing"); // Navigate to the Order Confirmation page
       } else {
         console.error("Error:", response.status);
       }
@@ -129,6 +138,7 @@ function Checkout() {
       console.error(error);
     }
   };
+  
   useEffect(() => {
     // Fetch user details from MongoDB when the component mounts
     fetch("/api/users/authorize")
