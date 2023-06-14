@@ -120,6 +120,13 @@ function Checkout() {
       if (response.ok) {
         const order = await response.json();
         console.log(order); // Log the response data
+
+        localStorage.removeItem("cartItem");
+
+ 
+
+        
+
         navigate("/order-confirmation", { state: { orderData: order } });
       } else {
         const errorData = await response.json();
