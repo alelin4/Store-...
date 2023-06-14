@@ -48,7 +48,7 @@ useEffect(() => {
   //Remove product to cart and localstorage using useLocalStorage
   const removeFromCart = (product: Product) => {
     const productIndex = cartItem.findIndex(
-      (currentProduct) => currentProduct._id === product._id
+      (currentProduct:Product) => currentProduct._id === product._id
     );
   
     if (productIndex !== -1) {

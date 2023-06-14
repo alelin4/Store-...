@@ -9,6 +9,19 @@ interface Product {
   price: number;
   description: string;
   title: string;
+
+  image: URL;
+}
+
+function ProductList(): JSX.Element {
+  const [products, setProducts] = useState<Product[]>([]);
+  const { addToCart} = useContext(StoreContext) ?? {};
+
+  const handleAdd = (product: Product): void => {
+    addToCart && addToCart(product);
+  };
+
+
   image: string;
   inStock: number;
   quantity: number;
@@ -18,6 +31,7 @@ interface Product {
 }
 
 function ProductList(): JSX.Element {
+
 
 
   const [products, setProducts] = useState<Product[]>([]);
@@ -40,11 +54,14 @@ function ProductList(): JSX.Element {
     }
   };
 
+
+
     const { addToCart } = useContext(StoreContext);
 
   const handleAdd = (product: Product): void => {
     addToCart(product);
   };
+
 
   return (
     <>
@@ -61,7 +78,6 @@ function ProductList(): JSX.Element {
             </Link>
             <div className="flex justify-center space-x-2 mt-2"> 
             <AddToCartBtn onClick={() => handleAdd(product)} />
-            </div>
           </div>
         ))}
       </div>
