@@ -1,16 +1,17 @@
 interface AddToCartButtonProps {
   onClick: () => void;
+ 
 }
 
 const AddToCartButton: React.FunctionComponent<AddToCartButtonProps> = ({
-  onClick,
+  onClick
 }) => {
   return (
     <button
       onClick={onClick}
-      className="bg-indigo-500 text-white text-lg font-medium rounded-full hover:opacity-50"
+      className="bg-Green-500 hover:bg-green-500 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
     >
-       Plus +
+       Köp
     </button>
   );
 };

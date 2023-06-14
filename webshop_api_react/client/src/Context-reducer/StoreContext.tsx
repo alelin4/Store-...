@@ -12,6 +12,8 @@ interface Product {
   description: string;
   title: string;
   image: URL;
+  inStock: string;
+  quantity: number;
 }
 
 interface StoreContextValue {

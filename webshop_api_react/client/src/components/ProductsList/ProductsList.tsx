@@ -1,30 +1,40 @@
-import { StoreContext } from "../../Context-reducer/StoreContext";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
+import { StoreContext } from "../../Context-reducer/StoreContext";
 import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
-import RemoveFromCartBtn from "../RemoveFromCartBtn/RemoveFromCartBtn";
 
 interface Product {
   _id: string;
   price: number;
   description: string;
   title: string;
+
   image: URL;
 }
 
 function ProductList(): JSX.Element {
   const [products, setProducts] = useState<Product[]>([]);
-  const { addToCart, removeFromCart } = useContext(StoreContext) ?? {};
+  const { addToCart} = useContext(StoreContext) ?? {};
 
   const handleAdd = (product: Product): void => {
     addToCart && addToCart(product);
   };
 
-  const handleRemove = (product: Product): void => {
-    removeFromCart && removeFromCart(product);
-  };
 
+  image: string;
+  inStock: number;
+  quantity: number;
+
+  // Change URL to string
+  // Add other product properties here
+}
+
+function ProductList(): JSX.Element {
+
+
+
+  const [products, setProducts] = useState<Product[]>([]);
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -44,6 +54,15 @@ function ProductList(): JSX.Element {
     }
   };
 
+
+
+    const { addToCart } = useContext(StoreContext);
+
+  const handleAdd = (product: Product): void => {
+    addToCart(product);
+  };
+
+
   return (
     <>
       <div>
@@ -57,8 +76,8 @@ function ProductList(): JSX.Element {
             <Link to={`/${product._id}`}>
               <ProductCard product={product} />
             </Link>
+            <div className="flex justify-center space-x-2 mt-2"> 
             <AddToCartBtn onClick={() => handleAdd(product)} />
-            <RemoveFromCartBtn onClick={() => handleRemove(product)} />
           </div>
         ))}
       </div>
