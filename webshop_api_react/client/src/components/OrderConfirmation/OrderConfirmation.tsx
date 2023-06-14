@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Loader from "../Loader/Loader";
 import { useLocation } from "react-router-dom";
 
+
 const ConfirmationPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
@@ -46,6 +47,7 @@ const ConfirmationPage: React.FC = () => {
             </p>
           </div>
         )}
+
       </div>
     </div>
   );
