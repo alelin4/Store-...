@@ -125,13 +125,20 @@ function Checkout() {
   
       if (response.ok) {
 
-        const data = await response.json();
-        console.log(data); // Log the response data
-  
-        // Clear cart items from local storage
+        const order = await response.json();
+        console.log(order); // Log the response data
+
         localStorage.removeItem("cartItem");
+
+ 
+
+        
+
+        navigate("/order-confirmation", { state: { orderData: order } });
+
+
   
-        navigate("/order-proccessing"); // Navigate to the Order Confirmation page
+
 
       } else {
         const errorData = await response.json();
