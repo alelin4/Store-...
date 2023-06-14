@@ -35,20 +35,18 @@ function CartDetails() {
     }
   };
 
-  const handleRemoveQuantity = (productId: unknown) => {
-    const product = products.find((product: { _id: any; }) => product._id === productId);
+  const handleRemoveQuantity = (productId) => {
+    const product = products.find((product) => product._id === productId);
     if (product) {
       removeFromCart(product);
     }
   };
 
-  const handleRemoveItem = (productId: unknown) => {
+  const handleRemoveItem = (productId) => {
     const filteredProducts = products.filter(
-      (product: { _id: any; }) => product._id === productId
+      (product) => product._id === productId
     );
-    
-    filteredProducts.forEach((product: any) => removeFromCart(product));
-
+    filteredProducts.forEach((product) => removeItemFromCart(product));
   };
   const getProductName = (productId: unknown) => {
     const product = products.find((product: { _id: any; }) => product._id === productId);
