@@ -7,7 +7,8 @@ interface Product {
   description: string;
   title: string;
   image: string;
-  // Add other product properties here
+  inStock: number;
+  quantity: number;
 }
 
 interface ProductCardProps {
