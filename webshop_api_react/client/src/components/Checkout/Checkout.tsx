@@ -35,7 +35,7 @@ function Checkout() {
 
   const [errors, setErrors] = useState<Partial<UserDetails>>({}); // Track form validation errors
   const navigate = useNavigate();
-  const { products, total, addToCart, removeFromCart, removeItemFromCart } = useContext(StoreContext);
+  const { products, total, addToCart, removeFromCart, removeItemFromCart, removeFromCheckout} = useContext(StoreContext);
   const [shippingMethods, setShippingMethods] = useState<ShippingMethod[]>([]);
   const [shippingPrice, setShippingPrice] = useState(0);
   const totalWithShipping = total + shippingPrice;
@@ -51,6 +51,8 @@ function Checkout() {
         console.error(error);
       });
   }, [total]);
+ 
+
 
 
   const handleShippingOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -129,19 +131,15 @@ function Checkout() {
 
         const order = await response.json();
         console.log(order); // Log the response data
-
-        localStorage.removeItem("cartItem");
-
- 
-
         
+        
+       
 
         navigate("/order-confirmation", { state: { orderData: order,
           userDetails: userDetails, } });
-
-
-  
-
+   
+          removeFromCheckout();
+          
 
       } else {
         const errorData = await response.json();

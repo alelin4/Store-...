@@ -1,6 +1,7 @@
-import React, { createContext, useReducer, ReactNode, useEffect } from "react";
+import React, { createContext, useReducer, ReactNode, useEffect, useContext } from "react";
 import reducer, { initialState } from "./storeReducer";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+
 
 interface StoreProviderProps {
   children: ReactNode;
@@ -22,6 +23,7 @@ interface StoreContextValue {
   addToCart: (product: Product) => void;
   removeFromCart: (product: Product) => void;
   removeItemFromCart: (product: Product) => void;
+  removeFromCheckout:()=>void;
 }
 
 export const StoreContext = createContext<StoreContextValue | null>(null);
@@ -62,11 +64,16 @@ useEffect(() => {
   };
   const removeFromCart = (product: Product) => {
     const updatedCart = cartItem.filter(
-      (currentProduct) => currentProduct._id !== product._id
+      (currentProduct: { _id: string; }) => currentProduct._id !== product._id
     );
   
     updatedPrice(updatedCart);
     setCartItem(updatedCart);
+  };
+
+  const removeFromCheckout = () => {
+    localStorage.removeItem("cartItem");
+    setCartItem([]);
   };
   
   
@@ -89,6 +96,7 @@ useEffect(() => {
     addToCart,
     removeFromCart,
     removeItemFromCart,
+    removeFromCheckout,
   };
 
   return (
