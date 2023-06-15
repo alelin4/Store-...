@@ -17,9 +17,8 @@ interface ShippingMethod {
   _id: string;
   company: string;
   price: number;
-  deliveryTimeInHours: number;  
+  deliveryTimeInHours: number;
 }
-
 
 function Checkout() {
   const [userDetails, setUserDetails] = useState<UserDetails>({
@@ -35,7 +34,14 @@ function Checkout() {
 
   const [errors, setErrors] = useState<Partial<UserDetails>>({}); // Track form validation errors
   const navigate = useNavigate();
-  const { products, total, addToCart, removeFromCart, removeItemFromCart, removeFromCheckout} = useContext(StoreContext);
+  const {
+    products,
+    total,
+    addToCart,
+    removeFromCart,
+    removeItemFromCart,
+    removeFromCheckout,
+  } = useContext(StoreContext);
   const [shippingMethods, setShippingMethods] = useState<ShippingMethod[]>([]);
   const [shippingPrice, setShippingPrice] = useState(0);
   const totalWithShipping = total + shippingPrice;
@@ -51,9 +57,6 @@ function Checkout() {
         console.error(error);
       });
   }, [total]);
- 
-
-
 
   const handleShippingOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedShippingOption = shippingMethods.find(
@@ -99,12 +102,11 @@ function Checkout() {
       return;
     }
 
-    const orderItems = products.map((product: { _id: any; }) => ({
-
+    const orderItems = products.map((product: { _id: any }) => ({
       product: product._id,
       quantity: getProductCount(product._id),
     }));
-  
+
     const orderData = {
       orderItems: orderItems,
       deliveryAddress: {
@@ -115,7 +117,7 @@ function Checkout() {
       },
       shippingMethod: userDetails.shippingOption,
     };
-  
+
     try {
       const response = await fetch("/api/orders", {
         method: "POST",
@@ -124,23 +126,24 @@ function Checkout() {
         },
         body: JSON.stringify(orderData),
       });
-  
-      console.log(orderData);
-  
-      if (response.ok) {
 
+      console.log(orderData);
+
+      if (response.ok) {
         const order = await response.json();
         console.log(order); // Log the response data
-        
-        
-       
 
-        navigate("/order-confirmation", { state: { orderData: order,
-          userDetails: userDetails, total, shippingPrice } });
-   
-          removeFromCheckout();
-          
+        navigate("/order-confirmation", {
+          state: {
+            orderData: order,
+            userDetails: userDetails,
+            total,
+            shippingPrice,
+            products: products,
+          },
+        });
 
+        removeFromCheckout();
       } else {
         const errorData = await response.json();
         console.error("Error:", errorData.message);
@@ -149,7 +152,7 @@ function Checkout() {
       console.error(error);
     }
   };
-  
+
   useEffect(() => {
     // Fetch user details from MongoDB when the component mounts
     fetch("/api/users/authorize")
@@ -172,14 +175,18 @@ function Checkout() {
       });
   }, []);
   const totalProductPrice = (productId: any) => {
-    const product = products.find((product: { _id: any; }) => product._id === productId);
+    const product = products.find(
+      (product: { _id: any }) => product._id === productId
+    );
     if (product) {
       return product.price * getProductCount(productId);
     }
     return 0;
   };
   const getProductPrice = (productId: unknown) => {
-    const product = products.find((product: { _id: any; }) => product._id === productId);
+    const product = products.find(
+      (product: { _id: any }) => product._id === productId
+    );
     if (product) {
       return product.price * getProductCount(productId);
     }
@@ -187,29 +194,35 @@ function Checkout() {
   };
   const getProductCount = (productId: unknown) => {
     const count = products.filter(
-      (product: { _id: any; }) => product._id === productId
+      (product: { _id: any }) => product._id === productId
     ).length;
     return count;
   };
   const getProductName = (productId: unknown) => {
-    const product = products.find((product: { _id: any; }) => product._id === productId);
+    const product = products.find(
+      (product: { _id: any }) => product._id === productId
+    );
     return product ? product.title : "";
   };
   const handleRemoveQuantity = (productId: unknown) => {
-    const product = products.find((product: { _id: any; }) => product._id === productId);
+    const product = products.find(
+      (product: { _id: any }) => product._id === productId
+    );
     if (product) {
       removeFromCart(product);
     }
   };
   const handleAddQuantity = (productId: unknown) => {
-    const product = products.find((product: { _id: any; }) => product._id === productId);
+    const product = products.find(
+      (product: { _id: any }) => product._id === productId
+    );
     if (product) {
       addToCart(product);
     }
   };
   const handleRemoveItem = (productId: unknown) => {
     const filteredProducts = products.filter(
-      (product: { _id: any; }) => product._id === productId
+      (product: { _id: any }) => product._id === productId
     );
     filteredProducts.forEach((product: any) => removeItemFromCart(product));
   };
@@ -223,51 +236,52 @@ function Checkout() {
             <p> Pris för produkter: {total}:-</p>
           </div>
           <ul className="mb-4">
-            {Array.from(new Set(products.map((product: { _id: any; }) => product._id))).map(
-              (productId) => {
-                const product = products.find((p: { _id: unknown; }) => p._id === productId);
-                return (
-                  <li key={productId} className="p-2 mb-3 mt-3 border-b">
-                    <div className="flex items-center">
+            {Array.from(
+              new Set(products.map((product: { _id: any }) => product._id))
+            ).map((productId) => {
+              const product = products.find(
+                (p: { _id: unknown }) => p._id === productId
+              );
+              return (
+                <li key={productId} className="p-2 mb-3 mt-3 border-b">
+                  <div className="flex items-center">
+                    <button
+                      className="px-2 ml-7 mr-7"
+                      onClick={() => handleRemoveQuantity(productId)}
+                    >
+                      <GrTrash />
+                    </button>
+                    {product && product.image && (
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-16 h-16 mr-8"
+                      />
+                    )}
+                    <div className="mr-9">
+                      <h3>{getProductName(productId)}</h3>
+                      <h4>{product.price}:-</h4>
+                    </div>
+                    <div className="ml-9 mr-2">
                       <button
-                        className="px-2 ml-7 mr-7"
-                        onClick={() => handleRemoveQuantity(productId)}
+                        className="px-2 border border-gray-400 rounded mr-2"
+                        onClick={() => handleRemoveItem(productId)}
                       >
-                        <GrTrash />
+                        -
+                      </button>{" "}
+                      {getProductCount(productId)}{" "}
+                      <button
+                        className="px-2 border border-gray-400 rounded ml-2 mr-9"
+                        onClick={() => handleAddQuantity(productId)}
+                      >
+                        +
                       </button>
-                      {product && product.image && (
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-16 h-16 mr-8"
-                        />
-                      )}
-                      <div className="mr-9">
-                      
-                          <h3>{getProductName(productId)}</h3>
-                          <h4>{product.price}:-</h4>
-                        </div><div className="ml-9 mr-2">
-                          <button
-                            className="px-2 border border-gray-400 rounded mr-2"
-                            onClick={() => handleRemoveItem(productId)}
-                          >
-                            -
-                          </button>{" "}
-                          {getProductCount(productId)}{" "}
-                          <button
-                            className="px-2 border border-gray-400 rounded ml-2 mr-9"
-                            onClick={() => handleAddQuantity(productId)}
-                          >
-                            +
-                          </button></div>
-                          <div>{getProductPrice(productId)}:-</div>
-                        
-                      </div>
-                   
-                  </li>
-                );
-              }
-            )}
+                    </div>
+                    <div>{getProductPrice(productId)}:-</div>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </ul>
