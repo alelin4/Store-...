@@ -62,7 +62,7 @@ useEffect(() => {
   };
   const removeFromCart = (product: Product) => {
     const updatedCart = cartItem.filter(
-      (currentProduct) => currentProduct._id !== product._id
+      (currentProduct: { _id: string; }) => currentProduct._id !== product._id
     );
   
     updatedPrice(updatedCart);
