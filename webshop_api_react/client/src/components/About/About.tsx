@@ -1,4 +1,4 @@
-import ErrorBoundry from "../../ErrorBoundry";
+import ErrorBoundry from "../../Errorboundry";
 
 function About() {
   return (

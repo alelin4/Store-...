@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Loader from "../Loader/Loader";
 
 function OrderProcessing() {
