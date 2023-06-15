@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Loader from "../Loader/Loader";
+import Loader from "../../components/common/Loader/Loader";
 import { useLocation } from "react-router-dom";
 
 const ConfirmationPage: React.FC = () => {

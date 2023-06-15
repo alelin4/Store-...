@@ -1,4 +1,4 @@
-import ProductsList from "../ProductsList/ProductsList";
+import ProductsList from "../../components/Product/ProductsList/ProductsList";
 import ErrorBoundry from "../../Errorboundry";
 
 function Home() {

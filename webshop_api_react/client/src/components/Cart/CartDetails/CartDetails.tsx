@@ -1,27 +1,25 @@
 import { useContext } from "react";
-import { StoreContext } from "../../Context-reducer/StoreContext";
+import { StoreContext } from "../../../Context-reducer/StoreContext";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { GrCart, GrTrash } from "react-icons/gr";
-import { Key } from "react";
-
-
-
 
 function CartDetails() {
-  const { products, total, addToCart, removeFromCart, removeItemFromCart} =
+  const { products, total, addToCart, removeFromCart, removeItemFromCart } =
     useContext(StoreContext);
   const isLoggedIn = Cookies.get("token") !== undefined;
 
-  const getProductCount = (productId:string) => {
+  const getProductCount = (productId: string) => {
     const count = products.filter(
-      (product: { _id: string; }) => product._id === productId
+      (product: { _id: string }) => product._id === productId
     ).length;
     return count;
   };
 
   const getProductPrice = (productId: unknown) => {
-    const product = products.find((product: { _id: any; }) => product._id === productId);
+    const product = products.find(
+      (product: { _id: any }) => product._id === productId
+    );
     if (product) {
       return product.price * getProductCount(productId);
     }
@@ -29,7 +27,9 @@ function CartDetails() {
   };
 
   const handleAddQuantity = (productId: unknown) => {
-    const product = products.find((product: { _id: any; }) => product._id === productId);
+    const product = products.find(
+      (product: { _id: any }) => product._id === productId
+    );
     if (product) {
       addToCart(product);
     }
@@ -49,7 +49,9 @@ function CartDetails() {
     filteredProducts.forEach((product) => removeItemFromCart(product));
   };
   const getProductName = (productId: unknown) => {
-    const product = products.find((product: { _id: any; }) => product._id === productId);
+    const product = products.find(
+      (product: { _id: any }) => product._id === productId
+    );
     return product ? product.title : "";
   };
 
@@ -71,7 +73,6 @@ function CartDetails() {
           </div>
         </div>
       ) : (
-
         <div className=" flex flex-col items-center justify-center gap-4 mt-3 py-2">
           <div className="w-3/4 max-w-screen-md	 m-5 mb-2 p-7 border border-gray-200 rounded-lg">
             <div className="flex flex-row items-center justify-between mt-2 py-1 px-7 text-xl font-medium">
@@ -89,7 +90,7 @@ function CartDetails() {
                       <div className="flex items-center mb-3">
                         <button
                           className="px-2 mr-5 text-red-500"
-                          onClick={() =>handleRemoveQuantity (productId)}
+                          onClick={() => handleRemoveQuantity(productId)}
                         >
                           <GrTrash />
                         </button>
@@ -125,8 +126,6 @@ function CartDetails() {
                             <h4>{getProductPrice(productId)}:-</h4>
                           </div>
                         </div>
-
-       
                       </div>
                     </li>
                   );

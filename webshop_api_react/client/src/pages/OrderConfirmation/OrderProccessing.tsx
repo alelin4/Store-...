@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Loader from "../Loader/Loader";
+import Loader from "../../components/common/Loader/Loader";
 
 function OrderProcessing() {
   useEffect(() => {

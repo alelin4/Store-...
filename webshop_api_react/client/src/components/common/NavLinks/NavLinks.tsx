@@ -5,6 +5,7 @@ import { Offcanvas } from "react-bootstrap";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ToCart from "../ToCart/ToCart";
+import SideMenuCartIcon from "../SideMenuCartIcon/SideMenuCartIcon";
 
 function NavLinks() {
   const token = Cookies.get("token");
@@ -53,37 +54,37 @@ function NavLinks() {
 
       {/* Offcanvas for mobile menu */}
       <div>
-       
         <div className="d-md-none">
-          <div className="d-flex align-items-center"><NavLink to="/cart" onClick={handleMobileMenuClick}>
-          <ToCart />
-        </NavLink>
+          <div className="d-flex align-items-center">
+            <NavLink to="/cart" onClick={handleMobileMenuClick}>
+              <ToCart />
+            </NavLink>
             <button className="btn btn-primary" onClick={toggleMobileMenu}>
-              <span className="navbar-toggler-icon"><GrMenu /></span>
+              <span className="text-2xl">
+                <GrMenu />
+              </span>
             </button>
-          </div>
-          <div> {" "}
-        
+          </div>{" "}
+          <div className=" bg-black">
             <Offcanvas
               show={showMobileMenu}
               onHide={toggleMobileMenu}
               placement="end"
               backdrop={true}
-              backdropClassName="bg-gray-900"
+              backdropClassName="bg-black text-white"
             >
               <Offcanvas.Header closeButton>
-            <GrFormClose/ >
-                <Offcanvas.Title>Menu</Offcanvas.Title>
+                <Offcanvas.Title>Meny</Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <ul className="list-unstyled">
-                  <li>
+                <ul className="list-unstyled 	">
+                  <li className="mb-2">
                     <NavLink to="/cart" onClick={handleMobileMenuClick}>
-                      <ToCart />
+                      <SideMenuCartIcon />
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink to="/" onClick={handleMobileMenuClick}>
+                  <li className="mb-2">
+                    <NavLink to="/" onClick={handleMobileMenuClick} >
                       Våra produkter
                     </NavLink>
                   </li>
@@ -98,13 +99,13 @@ function NavLinks() {
                       Logga ut
                     </li>
                   ) : (
-                    <li>
+                    <li className="mb-2">
                       <NavLink to="/login" onClick={handleMobileMenuClick}>
                         Logga in
                       </NavLink>
                     </li>
                   )}
-                  <li>
+                  <li className="mb-2">
                     <NavLink to="/contact" onClick={handleMobileMenuClick}>
                       Kundservice
                     </NavLink>
