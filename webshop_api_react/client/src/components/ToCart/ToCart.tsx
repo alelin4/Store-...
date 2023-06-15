@@ -7,7 +7,6 @@ function ToCart() {
   const storeContext = useContext(StoreContext);
 
   if (!storeContext) {
-    // Handle case where StoreContext value is null
     return null;
   }
 
@@ -18,11 +17,9 @@ function ToCart() {
       <span className="absolute right-[-5px] top-[-5px] bg-gray-300 h-4 w-4 rounded-full flex items-center justify-center text-gray-800">
         {products.length}
       </span>
-      <Link to="/cart">
-        <div className="text-3xl bg-white">
-          <GrCart />
-        </div>
-      </Link>
+      <div className="text-3xl bg-white">
+        <GrCart />
+      </div>
     </div>
   );
 }

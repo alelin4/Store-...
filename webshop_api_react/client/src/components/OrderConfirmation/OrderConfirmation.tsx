@@ -13,8 +13,6 @@ const ConfirmationPage: React.FC = () => {
       setIsLoading(false); // Set isLoading to false after the desired delay
     }, 2000); // Simulated delay of 2 seconds
   }, []);
- 
-
 
   return (
     <div className="flex flex-row items-center justify-between mt-2 py-6 px-10 text-xl font-medium">
@@ -31,14 +29,18 @@ const ConfirmationPage: React.FC = () => {
               {orderData.deliveryAddress.street},{" "}
               {orderData.deliveryAddress.zipcode}{" "}
               {orderData.deliveryAddress.city},{" "}
-              {orderData.deliveryAddress.country}.            </p>
-      
+              {orderData.deliveryAddress.country}.{" "}
+            </p>
 
-            
-{orderData.shippingMethod === "648248d3bbcfe7d8092c84f8" && <p>Du kommer få din beställning via DHL inom 24Tim</p>}
-{orderData.shippingMethod === "648248eabbcfe7d8092c84fa" && <p>Du kommer få din beställning via Instabox inom 48Tim</p>}
-{orderData.shippingMethod === "648253e3bbcfe7d8092c8544" && <p>Du kommer få din beställning via Postnord inom 72Tim</p>}
-
+            {orderData.shippingMethod === "648248d3bbcfe7d8092c84f8" && (
+              <p>Du kommer få din beställning via DHL inom 24Tim</p>
+            )}
+            {orderData.shippingMethod === "648248eabbcfe7d8092c84fa" && (
+              <p>Du kommer få din beställning via Instabox inom 48Tim</p>
+            )}
+            {orderData.shippingMethod === "648253e3bbcfe7d8092c8544" && (
+              <p>Du kommer få din beställning via Postnord inom 72Tim</p>
+            )}
 
             <p>
               Du kommer få ett kvitto på ditt köp på detta mejladress:{" "}

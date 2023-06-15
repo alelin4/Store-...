@@ -1,6 +1,5 @@
 import ErrorBoundry from "../../Errorboundry";
 import NavLinks from "../NavLinks/NavLinks";
-import ToCart from "../ToCart/ToCart";
 import { Link } from "react-router-dom";
 
 function Header() {
@@ -14,9 +13,6 @@ function Header() {
       <div className="flex items-center gap-2">
         <ErrorBoundry>
           <NavLinks />
-        </ErrorBoundry>
-        <ErrorBoundry>
-          <ToCart />
         </ErrorBoundry>
       </div>
     </header>
