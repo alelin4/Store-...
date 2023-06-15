@@ -9,17 +9,11 @@ interface Product {
   price: number;
   description: string;
   title: string;
-
   image: URL;
+  inStock: number;
 }
 
-
-
 function ProductList(): JSX.Element {
-
-
-
-
   const [products, setProducts] = useState<Product[]>([]);
   useEffect(() => {
     fetchProducts();
@@ -40,17 +34,11 @@ function ProductList(): JSX.Element {
     }
   };
 
-
-
-
-
-    const { addToCart } = useContext(StoreContext);
+  const { addToCart } = useContext(StoreContext);
 
   const handleAdd = (product: Product): void => {
     addToCart(product);
   };
-
-
 
   return (
     <>
@@ -63,19 +51,23 @@ function ProductList(): JSX.Element {
       </div>
 
       <div className="flex justify-center w-full">
-        <div className="max-w-screen-2xl flex flex-col items-center gap-3 lg:grid lg:grid-cols-4 p-8">
+        <div className="max-w-screen-2xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 p-8">
           {products.map((product) => (
-            <div key={product._id}>
+            <div key={product._id} className="flex flex-col">
               <Link to={`/${product._id}`}>
                 <ProductCard product={product} />
               </Link>
-              <AddToCartBtn onClick={() => handleAdd(product)} inStock={product.inStock} />
-              
+              <div className="mt-4">
+                {product.inStock >= 1 && (
+                  <AddToCartBtn
+                    onClick={() => handleAdd(product)}
+                    inStock={product.inStock}
+                  />
+                )}
+              </div>
             </div>
           ))}
         </div>
-
-
       </div>
     </>
   );
