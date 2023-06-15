@@ -65,7 +65,7 @@ function ProductDetails(): JSX.Element {
             : "Finns i lager"}
         </p>
         <img className="object-contain h-48 w-96" src={product.image} alt="" />
-        <AddToCartBtn onClick={() => handleAdd(product)} />
+        <AddToCartBtn onClick={() => handleAdd(product)} inStock={product.inStock} />
 
       </div>
     </>
