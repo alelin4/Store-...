@@ -9,7 +9,8 @@ import { useLocation } from "react-router-dom";
 const ConfirmationPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
-  const { orderData, userDetails } = location.state;
+  const { orderData, userDetails, total, shippingPrice } = location.state;
+  const totalWithShipping = total + shippingPrice;
 
 
   // Simulate an asynchronous operation, e.g., processing order, etc.
@@ -37,14 +38,19 @@ const ConfirmationPage: React.FC = () => {
               {orderData.deliveryAddress.street},{" "}
               {orderData.deliveryAddress.zipcode}{" "}
               {orderData.deliveryAddress.city},{" "}
-              {orderData.deliveryAddress.country}.            </p>
+              {orderData.deliveryAddress.country}.   
+                     </p>
       
 
-            
+ <p>          
 {orderData.shippingMethod === "648248d3bbcfe7d8092c84f8" && <p>Du kommer få din beställning via DHL inom 24Tim</p>}
 {orderData.shippingMethod === "648248eabbcfe7d8092c84fa" && <p>Du kommer få din beställning via Instabox inom 48Tim</p>}
 {orderData.shippingMethod === "648253e3bbcfe7d8092c8544" && <p>Du kommer få din beställning via Postnord inom 72Tim</p>}
+</p> 
 
+<p>
+Din totala summa, inklusive frakt är:  Summa: {totalWithShipping} 
+</p>
 
             <p>
               Du kommer få ett kvitto på ditt köp på detta mejladress:{" "}

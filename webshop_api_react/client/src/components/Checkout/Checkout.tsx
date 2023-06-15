@@ -136,7 +136,7 @@ function Checkout() {
        
 
         navigate("/order-confirmation", { state: { orderData: order,
-          userDetails: userDetails, } });
+          userDetails: userDetails, total, shippingPrice } });
    
           removeFromCheckout();
           
