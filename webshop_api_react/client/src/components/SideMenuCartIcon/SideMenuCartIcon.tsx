@@ -1,9 +1,8 @@
 import { useContext } from "react";
 import { GrCart } from "react-icons/gr";
-import { Link } from "react-router-dom";
 import { StoreContext } from "../../Context-reducer/StoreContext";
 
-function ToCart() {
+function SideMenuCartIcon() {
   const storeContext = useContext(StoreContext);
 
   if (!storeContext) {
@@ -14,7 +13,7 @@ function ToCart() {
 
   return (
     <div className="relative">
-      <span className="absolute right-[7px] top-[-5px] bg-gray-300 h-4 w-4 rounded-full flex items-center justify-center text-gray-800">
+      <span className="absolute right-7px top-[-4px] bg-gray-300 h-4 w-4 rounded-full flex items-center justify-center text-gray-800">
         {products.length}
       </span>
       <div className="flex items-center justify-center w-9 h-9 rounded-full bg-white ml-3 mr-3">
@@ -24,4 +23,4 @@ function ToCart() {
   );
 }
 
-export default ToCart;
+export default SideMenuCartIcon;

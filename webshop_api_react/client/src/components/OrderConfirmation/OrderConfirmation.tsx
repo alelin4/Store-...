@@ -37,6 +37,8 @@ const ConfirmationPage: React.FC = () => {
               {orderData.deliveryAddress.street},{" "}
               {orderData.deliveryAddress.zipcode}{" "}
               {orderData.deliveryAddress.city},{" "}
+
+
               {orderData.deliveryAddress.country}.
             </p>
             {orderData.shippingMethod === "648248d3bbcfe7d8092c84f8" && (
@@ -69,6 +71,7 @@ const ConfirmationPage: React.FC = () => {
                 })}
               </ul>
             </ul>
+
             <p>
               Din totala summa, inklusive frakt är: Summa: {totalWithShipping}
             </p>

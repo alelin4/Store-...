@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
-import { StoreContext } from "../../Context-reducer/StoreContext";
-import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
+import { StoreContext } from "../../../Context-reducer/StoreContext";
+import AddToCartBtn from "../../AddToCartBtn/AddToCartBtn";
 
 interface Product {
   _id: string;
@@ -45,7 +45,7 @@ function ProductList(): JSX.Element {
       <div className="flex justify-center w-full">
         <div>
           <h1 className="text-4xl text-center font-semibold mt-2 py-4">
-            Nytt hos oss
+            Vårt utbud{" "}
           </h1>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, ReactNode, useEffect, useContext } from "react";
 import reducer, { initialState } from "./storeReducer";
-import { useLocalStorage } from "../components/hooks/useLocalStorage";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 
 interface StoreProviderProps {

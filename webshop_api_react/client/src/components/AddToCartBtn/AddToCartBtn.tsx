@@ -7,7 +7,7 @@ interface AddToCartBtnProps {
 
 const AddToCartBtn: React.FunctionComponent<AddToCartBtnProps> = ({
   onClick,
-  inStock
+  inStock,
 }) => {
   if (inStock < 1) {
     return null; // Return null to hide the button when inStock < 1
