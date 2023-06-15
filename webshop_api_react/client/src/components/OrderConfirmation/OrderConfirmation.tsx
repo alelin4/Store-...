@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import Loader from "../Loader/Loader";
 import { useLocation } from "react-router-dom";
 
-
 const ConfirmationPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
-  const { orderData } = location.state;
+  const { orderData, userDetails } = location.state;
 
   // Simulate an asynchronous operation, e.g., processing order, etc.
   useEffect(() => {
@@ -38,6 +37,14 @@ const ConfirmationPage: React.FC = () => {
                 </li>
               ))}
             </ul>
+            <h2>User Details</h2>
+            <ul>
+              <li>
+                <p>First Name: {userDetails.firstName}</p>
+                <p>Last Name: {userDetails.lastName}</p>
+                <p>Email: {userDetails.email}</p>
+              </li>
+            </ul>
 
             <p>Shipping Method: {orderData.shippingMethod}</p>
             <p>
@@ -47,12 +54,9 @@ const ConfirmationPage: React.FC = () => {
             </p>
           </div>
         )}
-
       </div>
     </div>
   );
 };
 
 export default ConfirmationPage;
-
-

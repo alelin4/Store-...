@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { StoreContext, Product } from "../../Context-reducer/StoreContext";
+import { StoreContext } from "../../Context-reducer/StoreContext";
 import { GrTrash } from "react-icons/gr";
 
 interface UserDetails {
@@ -17,8 +17,10 @@ interface ShippingMethod {
   _id: string;
   company: string;
   price: number;
-  deliveryTimeInHours: number;
+  deliveryTimeInHours: number;  
 }
+
+
 function Checkout() {
   const [userDetails, setUserDetails] = useState<UserDetails>({
     firstName: "",
@@ -134,7 +136,8 @@ function Checkout() {
 
         
 
-        navigate("/order-confirmation", { state: { orderData: order } });
+        navigate("/order-confirmation", { state: { orderData: order,
+          userDetails: userDetails, } });
 
 
   
