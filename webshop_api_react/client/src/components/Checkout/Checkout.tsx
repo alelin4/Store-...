@@ -95,7 +95,7 @@ function Checkout() {
       return;
     }
 
-    const orderItems = products.map((product) => ({
+    const orderItems = products.map((product: { _id: any; }) => ({
 
       product: product._id,
       quantity: getProductCount(product._id),
@@ -170,47 +170,47 @@ function Checkout() {
         console.error(error);
       });
   }, []);
-  const totalProductPrice = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const totalProductPrice = (productId: any) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       return product.price * getProductCount(productId);
     }
     return 0;
   };
-  const getProductPrice = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const getProductPrice = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       return product.price * getProductCount(productId);
     }
     return 0;
   };
-  const getProductCount = (productId) => {
+  const getProductCount = (productId: unknown) => {
     const count = products.filter(
-      (product) => product._id === productId
+      (product: { _id: any; }) => product._id === productId
     ).length;
     return count;
   };
-  const getProductName = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const getProductName = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     return product ? product.title : "";
   };
-  const handleRemoveQuantity = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const handleRemoveQuantity = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       removeFromCart(product);
     }
   };
-  const handleAddQuantity = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const handleAddQuantity = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       addToCart(product);
     }
   };
-  const handleRemoveItem = (productId) => {
+  const handleRemoveItem = (productId: unknown) => {
     const filteredProducts = products.filter(
-      (product) => product._id === productId
+      (product: { _id: any; }) => product._id === productId
     );
-    filteredProducts.forEach((product) => removeItemFromCart(product));
+    filteredProducts.forEach((product: any) => removeItemFromCart(product));
   };
   return (
     <div className="max-w-5xl	p-6 pt-9 pb-9 mt-9 mb-9 mx-auto border border-gray-200 rounded-lg">
@@ -222,9 +222,9 @@ function Checkout() {
             <p> Pris för produkter: {total}:-</p>
           </div>
           <ul className="mb-4">
-            {Array.from(new Set(products.map((product) => product._id))).map(
+            {Array.from(new Set(products.map((product: { _id: any; }) => product._id))).map(
               (productId) => {
-                const product = products.find((p) => p._id === productId);
+                const product = products.find((p: { _id: unknown; }) => p._id === productId);
                 return (
                   <li key={productId} className="p-2 mb-3 mt-3 border-b">
                     <div className="flex items-center">

@@ -3,7 +3,7 @@ import { StoreContext } from "../../Context-reducer/StoreContext";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { GrCart, GrTrash } from "react-icons/gr";
-import { Key } from "react";
+
 
 
 
@@ -35,18 +35,18 @@ function CartDetails() {
     }
   };
 
-  const handleRemoveQuantity = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const handleRemoveQuantity = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       removeFromCart(product);
     }
   };
 
-  const handleRemoveItem = (productId) => {
+  const handleRemoveItem = (productId: unknown) => {
     const filteredProducts = products.filter(
-      (product) => product._id === productId
+      (product: { _id: any; }) => product._id === productId
     );
-    filteredProducts.forEach((product) => removeItemFromCart(product));
+    filteredProducts.forEach((product: any) => removeItemFromCart(product));
   };
   const getProductName = (productId: unknown) => {
     const product = products.find((product: { _id: any; }) => product._id === productId);
@@ -79,10 +79,10 @@ function CartDetails() {
               <p> Pris för produkter: {total}:-</p>
             </div>
             <ul className="mb-4">
-              {Array.from(new Set(products.map((product) => product._id))).map(
+              {Array.from(new Set(products.map((product: { _id: any; }) => product._id))).map(
                 (productId) => {
                   const product = products.find(
-                    (product) => product._id === productId
+                    (product: { _id: unknown; }) => product._id === productId
                   );
                   return (
                     <li key={productId} className="p-2 mb-3 mt-3 border-b">
