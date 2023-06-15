@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import { StoreContext } from "../../../Context-reducer/StoreContext";
-import AddToCartBtn from "../../Cart/AddToCartBtn/AddToCartBtn";
+import AddToCartBtn from "../../AddToCartBtn/AddToCartBtn";
 
 interface Product {
   _id: string;

@@ -1,14 +1,14 @@
-import About from "../../pages/About/About";
-import Contact from "../../pages/Contact/Contact";
+import About from "../About/About";
+import Contact from "../Contact/Contact";
 import { Routes, Route } from "react-router";
 import ProductDetails from "../Product/ProductDetails/ProductDetails";
-import Home from "../../pages/Home/Home";
-import CartDetails from "../Cart/CartDetails/CartDetails";
+import Home from "../Home/Home";
+import CartDetails from "../CartDetails/CartDetails";
 import Checkout from "../Checkout/Checkout";
-import Login from "../../pages/Login/Login";
-import OrderConfirmation from "../../pages/OrderConfirmation/OrderConfirmation";
-import Register from "../../pages/Login/Register";
-import OrderProcessing from "../../pages/OrderConfirmation/OrderProccessing";
+import Login from "../Login/Login";
+import OrderConfirmation from "../OrderConfirmation/OrderConfirmation";
+import Register from "../Login/Register";
+import OrderProcessing from "../OrderConfirmation/OrderProccessing";
 
 function Main() {
   return (
@@ -20,7 +20,6 @@ function Main() {
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<CartDetails />} />
         <Route path="/checkout" element={<Checkout />} />
-        <Route path="/order-proccessing" element={<OrderProcessing />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} />

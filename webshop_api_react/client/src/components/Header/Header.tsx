@@ -1,5 +1,5 @@
-import ErrorBoundry from "../../../ErrorBoundry";
-import NavLinks from "../../common/NavLinks/NavLinks";
+import ErrorBoundry from "../../ErrorBoundry";
+import NavLinks from "../NavLinks/NavLinks";
 import { Link } from "react-router-dom";
 
 function Header() {

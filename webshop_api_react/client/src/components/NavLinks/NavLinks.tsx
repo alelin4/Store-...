@@ -84,7 +84,7 @@ function NavLinks() {
                     </NavLink>
                   </li>
                   <li className="mb-2">
-                    <NavLink to="/" onClick={handleMobileMenuClick} >
+                    <NavLink to="/" onClick={handleMobileMenuClick}>
                       Våra produkter
                     </NavLink>
                   </li>

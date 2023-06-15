@@ -1,5 +1,5 @@
 import { StoreContext } from "../../../Context-reducer/StoreContext";
-import AddToCartBtn from "../../Cart/AddToCartBtn/AddToCartBtn";
+import AddToCartBtn from "../../AddToCartBtn/AddToCartBtn";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 

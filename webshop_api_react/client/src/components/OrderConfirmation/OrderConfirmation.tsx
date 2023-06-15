@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Loader from "../../components/common/Loader/Loader";
+import Loader from "../Loader/Loader";
 import { useLocation } from "react-router-dom";
-
-
-
-
 
 const ConfirmationPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
   const { orderData, userDetails } = location.state;
-
 
   // Simulate an asynchronous operation, e.g., processing order, etc.
   useEffect(() => {
@@ -20,7 +15,6 @@ const ConfirmationPage: React.FC = () => {
   }, []);
 
   return (
-    
     <div className="flex flex-row items-center justify-between mt-2 py-6 px-10 text-xl font-medium">
       <div className="p-2 border border-gray-200 rounded-lg">
         {isLoading ? (
