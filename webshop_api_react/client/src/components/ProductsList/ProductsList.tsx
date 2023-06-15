@@ -69,7 +69,7 @@ function ProductList(): JSX.Element {
               <Link to={`/${product._id}`}>
                 <ProductCard product={product} />
               </Link>
-              <AddToCartBtn onClick={() => handleAdd(product)} />
+              <AddToCartBtn onClick={() => handleAdd(product)} inStock={product.inStock} />
               
             </div>
           ))}
