@@ -51,7 +51,7 @@ function CartDetails() {
   };
 
   return (
-    <div className="max-w-4xl pt-9 pb-9 mt-9 mb-9 mx-auto border border-gray-200 rounded-lg">
+    <div className="max-w-4xl pt-9 pb-9 mt-9 mb-80 mx-auto border border-gray-200 rounded-lg">
       <h1 className="text-2xl font-bold text-center">Varukorg</h1>
       {products.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-4 mt-3 py-2">

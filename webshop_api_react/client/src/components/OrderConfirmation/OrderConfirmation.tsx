@@ -24,7 +24,7 @@ const ConfirmationPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-row items-center justify-between mt-2 py-6 px-10 text-xl font-medium">
+    <div className="mb-80 flex flex-row items-center justify-between mt-2 py-6 px-10 text-xl font-medium">
       <div className="p-2 border border-gray-200 rounded-lg">
         {isLoading ? (
           <Loader />

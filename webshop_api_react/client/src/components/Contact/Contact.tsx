@@ -4,7 +4,7 @@ import SimpleForm from "./Form";
 
 function Contact() {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 mb-7 mt-3 py-7">
+    <div className="mb-80 flex  flex-col items-center justify-center gap-4 mt-3 py-7">
       <div className="w-full md:w-auto m-2 mb-8 flex flex-col md:flex-row border border-gray-200 rounded-lg">
         <div className="bg-gray-900 text-white w-full md:w-1/3 p-18 rounded-l-lg flex flex-col items-center justify-center">
           <h1 className="ml-8 font-bold from-stone-200 text-2xl mb-8 mt-3">
