@@ -65,19 +65,32 @@ function NavLinks() {
               </span>
             </button>
           </div>{" "}
-          <div className=" bg-black">
+          <div className={showMobileMenu ? "bg-black" : ""}>
             <Offcanvas
               show={showMobileMenu}
               onHide={toggleMobileMenu}
               placement="end"
               backdrop={true}
-              backdropClassName="bg-black text-white"
+              backdropClassName={showMobileMenu ? "bg-black text-white" : ""}
             >
-              <Offcanvas.Header closeButton>
+              <Offcanvas.Header>
                 <Offcanvas.Title>Meny</Offcanvas.Title>
+                <button
+                  className="btn btn-close"
+                  onClick={toggleMobileMenu}
+                  style={{
+                    color: "red",
+                    position: "absolute",
+                    top: "1rem",
+                    right: "1rem",
+                    zIndex: "1",
+                  }}
+                >
+                  <GrFormClose size={1} />
+                </button>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <ul className="list-unstyled 	">
+                <ul className="list-unstyled">
                   <li className="mb-2">
                     <NavLink to="/cart" onClick={handleMobileMenuClick}>
                       <SideMenuCartIcon />
@@ -90,6 +103,7 @@ function NavLinks() {
                   </li>
                   {loggedIn ? (
                     <li
+                    className="mb-2"
                       onClick={() => {
                         handleLogout();
                         handleMobileMenuClick();

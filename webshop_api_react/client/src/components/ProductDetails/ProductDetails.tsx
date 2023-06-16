@@ -1,7 +1,7 @@
-import { StoreContext } from "../../../Context-reducer/StoreContext";
-import AddToCartBtn from "../../AddToCartBtn/AddToCartBtn";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
+import { StoreContext } from "../../Context-reducer/StoreContext";
+import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
 
 interface Product {
   _id: string;
@@ -63,7 +63,7 @@ function ProductDetails(): JSX.Element {
 
             <p className="text-md">{product.price}</p>
 
-            <AddToCartBtn onClick={() => handleAdd(product)} inStock={0} />
+            <AddToCartBtn onClick={() => handleAdd(product)}  />
 
             <p
               className={`text-xs ${
