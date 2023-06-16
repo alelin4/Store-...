@@ -239,45 +239,46 @@ function Checkout() {
     filteredProducts.forEach((product: any) => removeItemFromCart(product));
   };
   return (
-    <div className="max-w-5xl p-6 pt-9 pb-9 mt-9 mb-9 mx-auto border border-gray-200 rounded-lg">
-      <h1 className="text-2xl font-bold text-center mb-6">Kassa</h1>
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="p-2 border border-gray-200 rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">Dina Produkter</h2>
-          <p className="mb-2">Pris för produkter: {total}:-</p>
-          <ul className="mb-4">
-            {(
-              Array.from(
-                new Set(products.map((product: Product) => product._id))
-              ) as string[]
-            ).map((productId: string) => {
-              const product = products.find(
-                (p: { _id: unknown }) => p._id === productId
-              );
-              return (
-                <li
-                  key={productId.toString()}
-                  className="p-2 mb-3 mt-3 border-b"
-                >
+
+    <div>
+      {" "}
+      <h1 className="text-2xl font-bold text-center mt-7 mb-6">Kassa</h1>
+      <div className="max-w-5xl mx-auto  md:col-span-2 p-2 border border-gray-200 rounded-lg">
+        <h2 className="text-2xl font-bold mb-4 mt-2 text-center">
+          Dina Produkter
+        </h2>
+
+        <ul className="mb-4 flex flex-col items-center">
+          {Array.from(
+            new Set(products.map((product: { _id: any }) => product._id))
+          ).map((productId) => {
+            const product = products.find(
+              (p: { _id: unknown }) => p._id === productId
+            );
+            return (
+              <li key={productId} className="p-2 mb-3 mt-3 border-b">
+                <div className="flex items-center">
+                  <button
+                    className="px-2 ml-7 mr-7"
+                    onClick={() => handleRemoveQuantity(productId)}
+                  >
+                    <GrTrash />
+                  </button>
+                  {product && product.image && (
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-16 h-16 mr-8"
+                    />
+                  )}
                   <div className="flex items-center">
-                    <button
-                      className="px-2 ml-7 mr-7"
-                      onClick={() => handleRemoveQuantity(productId as string)}
-                    >
-                      <GrTrash />
-                    </button>
-                    {product && product.image && (
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-16 h-16 mr-8"
-                      />
-                    )}
-                    <div className="mr-9">
+                    <div className="mr-3">
+
+
                       <h3>{getProductName(productId)}</h3>
                       <h4>{product.price}:-</h4>
                     </div>
-                    <div className="ml-9 mr-2">
+                    <div className="ml-auto flex items-center">
                       <button
                         className="px-2 border border-gray-400 rounded mr-2"
                         onClick={() => handleRemoveItem(productId)}
@@ -286,25 +287,34 @@ function Checkout() {
                       </button>{" "}
                       {getProductCount(productId)}{" "}
                       <button
-                        className="px-2 border border-gray-400 rounded ml-2 mr-9"
+                        className="px-2 border border-gray-400 rounded ml-2 mr-5"
                         onClick={() => handleAddQuantity(productId)}
                       >
                         +
                       </button>
                     </div>
-                    <div>{getProductPrice(productId)}:-</div>
                   </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <div className="p-2 border border-gray-200 rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">Leveransinformation</h2>
-          <div className="mb-4 m-2">
-            <label className="block mb-2" htmlFor="name">
-              Namn:
-            </label>
+
+
+                  <div>{getProductPrice(productId)}:-</div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <div className="max-w-5xl p-6 pt-9 pb-9 mt-9 mb-9 mx-auto border border-gray-200 rounded-lg">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="md:col-span-1 p-2 border border-gray-200 rounded-lg">
+            <h2 className="text-2xl font-bold mb-4 ml-3">
+              Leveransinformation
+            </h2>
+            <div className="mb-4 m-2">
+              <label className="block mb-2" htmlFor="name">
+                Namn:
+              </label>
+
+                
             <input
               type="text"
               id="name"
@@ -407,52 +417,52 @@ function Checkout() {
           {shippingMethods.map((shippingOption) => (
             <div
               key={shippingOption._id}
-              className="border border-gray-200 rounded-lg mb-3 py-3 px-2 m-2 "
-            >
-              <input
-                type="radio"
-                id={shippingOption._id}
-                name="shippingOption"
-                value={shippingOption._id}
-                checked={userDetails.shippingOption === shippingOption._id}
-                onChange={handleShippingOptionChange}
-              />
-              <label htmlFor={shippingOption._id} className="ml-2">
-                {shippingOption.company} - {shippingOption.price}:- ({""}
-                {shippingOption.deliveryTimeInHours} timmar)
-              </label>
+              className="border border-gray-200 rounded-lg mb-3 py-3 px-2 m-2">
+                <input
+                  type="radio"
+                  id={shippingOption._id}
+                  name="shippingOption"
+                  value={shippingOption._id}
+                  checked={userDetails.shippingOption === shippingOption._id}
+                  onChange={handleShippingOptionChange}
+                />
+                <label htmlFor={shippingOption._id} className="ml-2">
+                  {shippingOption.company} - {shippingOption.price}:- ({""}
+                  {shippingOption.deliveryTimeInHours} timmar)
+                </label>
+              </div>
+            ))}
+            {errors.shippingOption && (
+              <p className="text-red-500 text-sm">{errors.shippingOption}</p>
+            )}
+            <div className="flex flex-row items-center justify-between mt-2 px-3 text-xl font-medium">
+              <p className="p-1 mb-1">Pris för produkter:</p>
+              <p>{total}:-</p>
             </div>
-          ))}
-          {errors.shippingOption && (
-            <p className="text-red-500 text-sm">{errors.shippingOption}</p>
-          )}
-          <div className="flex flex-row items-center justify-between mt-2 px-3 text-xl font-medium">
-            <p className="p-1 mb-1">Pris för produkter:</p>
-            <p>{total}:-</p>
-          </div>
-          <div className="flex flex-row items-center justify-between mt-2 px-3 text-xl font-medium">
-            <p className="p-1 mb-1">Frakt:</p>
-            <p>{shippingPrice}:-</p>
-          </div>
-          <div className="flex flex-row items-center justify-between mt-2 px-3 text-xl font-medium">
-            <p className="p-1 mb-2">Total summa:</p>
-            <p>{totalWithShipping}:-</p>
+            <div className="flex flex-row items-center justify-between mt-2 px-3 text-xl font-medium">
+              <p className="p-1 mb-1">Frakt:</p>
+              <p>{shippingPrice}:-</p>
+            </div>
+            <div className="flex flex-row items-center justify-between mt-2 px-3 text-xl font-medium">
+              <p className="p-1 mb-2">Total summa:</p>
+              <p>{totalWithShipping}:-</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="flex justify-between mt-6">
-        <button
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
-          onClick={() => navigate(-1)}
-        >
-          Tillbaka
-        </button>
-        <button
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
-          onClick={placeOrder}
-        >
-          Lägg beställning
-        </button>
+        <div className="flex justify-between mt-6">
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
+            onClick={() => navigate(-1)}
+          >
+            Tillbaka
+          </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
+            onClick={placeOrder}
+          >
+            Lägg beställning
+          </button>
+        </div>
       </div>
     </div>
   );
