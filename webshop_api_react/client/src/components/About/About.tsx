@@ -1,7 +1,7 @@
 
 
-import { GrContact, GrMailOption, GrPhone, GrView } from "react-icons/gr";
-import SimpleForm from "./Form";
+import { GrView } from "react-icons/gr";
+
 
 
 function About() {

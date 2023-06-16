@@ -4,11 +4,18 @@ import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Register = () => {
-  const [isRegistered, setIsRegistered] = useState(false); // State to track registration status
-  const [errorMessage, setErrorMessage] = useState(""); // State to store error message
+interface RegisterFormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
 
-  const formik = useFormik({
+const Register = (): JSX.Element => {
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const formik = useFormik<RegisterFormValues>({
     initialValues: {
       firstName: "",
       lastName: "",
@@ -25,13 +32,22 @@ const Register = () => {
         .required("Password is required")
         .min(6, "Password must be at least 6 characters"),
     }),
-    onSubmit: async (values, { setSubmitting, resetForm }) => {
+    onSubmit: async (
+      values: RegisterFormValues,
+      {
+        setSubmitting,
+        resetForm,
+      }: {
+        setSubmitting: (isSubmitting: boolean) => void;
+        resetForm: () => void;
+      }
+    ) => {
       try {
         const response = await axios.post("/api/users/register", values);
         console.log(response.data); // Handle successful registration
-        setIsRegistered(true); // Set registration status to true
+        setIsRegistered(true);
         resetForm();
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error registering:", error);
         if (
           error.response &&
@@ -49,7 +65,7 @@ const Register = () => {
 
   return (
     <div className="mb-7 flex flex-col items-center justify-center gap-4 mt-3">
-      {!isRegistered ? ( // Render the form if not registered
+      {!isRegistered ? (
         <div className="m-5 mb-8 p-3 border border-gray-200 rounded-lg">
           <h2 className="flex flex-col items-center justify-center gap-4 mt-4 py-2 text-2xl font-bold mb-4">
             Skapa konto
@@ -131,7 +147,6 @@ const Register = () => {
           </form>
         </div>
       ) : (
-        // Render success message if registered
         <div className="m-9 mb-9 p-9 border border-gray-200 rounded-lg">
           <h2 className="text-2xl font-bold text-center mb-4">
             Registreringen är klar!

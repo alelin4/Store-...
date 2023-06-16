@@ -23,7 +23,7 @@ interface StoreContextValue {
   addToCart: (product: Product) => void;
   removeFromCart: (product: Product) => void;
   removeItemFromCart: (product: Product) => void;
-  removeFromCheckout:()=>void;
+  removeFromCheckout: () => void;
 }
 
 export const StoreContext = createContext<StoreContextValue | null>(null);
@@ -99,17 +99,6 @@ useEffect(() => {
     removeFromCheckout,
   };
 
-{/* från gpt kolla
-
-
-    StoreContextValue = {
-    total: state.total,
-    products: cartItem,
-    addToCart: (product: Product) => addToCart(product),
-    removeFromCart: (product: Product) => removeFromCart(product),
-    removeItemFromCart: (product: Product) => removeItemFromCart(product),
-    removeFromCheckout: () => removeFromCheckout(),
-  };*/}
 
 
   return (

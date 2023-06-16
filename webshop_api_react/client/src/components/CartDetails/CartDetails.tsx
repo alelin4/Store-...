@@ -6,7 +6,7 @@ import { GrCart, GrTrash } from "react-icons/gr";
 
 function CartDetails() {
   const { products, total, addToCart, removeFromCart, removeItemFromCart } =
-    useContext(StoreContext);
+  useContext<StoreContextValue>(StoreContext);
   const isLoggedIn = Cookies.get("token") !== undefined;
 
   const getProductCount = (productId: unknown) => {
@@ -77,7 +77,7 @@ function CartDetails() {
                     (product: { _id: unknown; }) => product._id === productId
                   );
                   return (
-                    <li key={productId} className="p-2 mb-3 mt-3 border-b">
+                    <li key={product._id} className="p-2 mb-3 mt-3 border-b">
                       <div className="flex items-center mb-3">
                         <button
                           className="px-2 mr-5 text-red-500"

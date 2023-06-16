@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState, ChangeEvent, FormEvent } from "react";
+import { useContext, useEffect, useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context-reducer/StoreContext";
 import { GrTrash } from "react-icons/gr";
+
 
 interface UserDetails {
   firstName: string;
@@ -31,9 +32,10 @@ interface Product {
 }
 
 
-
 function Checkout() {
+  const storeContext = useContext<StoreContextValue>(StoreContext);
   const [userDetails, setUserDetails] = useState<UserDetails>({
+
     firstName: "",
     lastName: "",
     email: "",
@@ -53,7 +55,8 @@ function Checkout() {
     removeFromCart,
     removeItemFromCart,
     removeFromCheckout,
-  } = useContext(StoreContext);
+  } = storeContext
+
   const [shippingMethods, setShippingMethods] = useState<ShippingMethod[]>([]);
   const [shippingPrice, setShippingPrice] = useState(0);
   const totalWithShipping = total + shippingPrice;
@@ -186,15 +189,7 @@ function Checkout() {
         console.error(error);
       });
   }, []);
-  const totalProductPrice = (productId: any) => {
-    const product = products.find(
-      (product: { _id: any }) => product._id === productId
-    );
-    if (product) {
-      return product.price * getProductCount(productId);
-    }
-    return 0;
-  };
+
   const getProductPrice = (productId: unknown) => {
     const product = products.find(
       (product: { _id: any }) => product._id === productId

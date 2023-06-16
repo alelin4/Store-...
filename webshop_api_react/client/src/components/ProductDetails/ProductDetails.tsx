@@ -17,7 +17,7 @@ function ProductDetails(): JSX.Element {
   const [product, setProduct] = useState<Product | null>(null);
   const { id } = useParams();
 
-  const { addToCart } = useContext(StoreContext);
+  const { addToCart } = useContext<StoreContextValue>(StoreContext);
 
   const handleAdd = (product: Product): void => {
     addToCart(product);

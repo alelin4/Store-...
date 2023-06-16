@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
-import { StoreContext } from "../../Context-reducer/StoreContext";
+import { StoreContext,  } from "../../Context-reducer/StoreContext";
 import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
 
 interface Product {
@@ -9,8 +9,9 @@ interface Product {
   price: number;
   description: string;
   title: string;
-  image: URL;
+  image: string;
   inStock: number;
+  quantity: number;
 }
 
 function ProductList(): JSX.Element {
@@ -34,7 +35,7 @@ function ProductList(): JSX.Element {
     }
   };
 
-  const { addToCart } = useContext(StoreContext);
+  const { addToCart } = useContext<StoreContextValue>(StoreContext);
 
   const handleAdd = (product: Product): void => {
     addToCart(product);
