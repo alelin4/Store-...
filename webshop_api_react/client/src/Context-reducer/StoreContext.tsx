@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, ReactNode, useEffect, useContext } from "react";
+import React, { createContext, useReducer, ReactNode, useEffect, } from "react";
 import reducer, { initialState } from "./storeReducer";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
@@ -99,9 +99,24 @@ useEffect(() => {
     removeFromCheckout,
   };
 
+{/* från gpt kolla
+
+
+    StoreContextValue = {
+    total: state.total,
+    products: cartItem,
+    addToCart: (product: Product) => addToCart(product),
+    removeFromCart: (product: Product) => removeFromCart(product),
+    removeItemFromCart: (product: Product) => removeItemFromCart(product),
+    removeFromCheckout: () => removeFromCheckout(),
+  };*/}
+
+
   return (
     <StoreContext.Provider value={value}>
       {children}
     </StoreContext.Provider>
   );
 };
+
+
