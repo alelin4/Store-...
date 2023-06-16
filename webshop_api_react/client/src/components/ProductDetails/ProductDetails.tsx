@@ -10,14 +10,13 @@ interface Product {
   title: string;
   image: string;
   inStock: number;
-  // Add other product properties here
 }
 
 function ProductDetails(): JSX.Element {
   const [product, setProduct] = useState<Product | null>(null);
   const { id } = useParams();
 
-  const { addToCart } = useContext(StoreContext);
+  const { addToCart } = useContext<StoreContextValue>(StoreContext);
 
   const handleAdd = (product: Product): void => {
     addToCart(product);
@@ -33,7 +32,7 @@ function ProductDetails(): JSX.Element {
       if (response.ok) {
         const data = await response.json();
         setProduct(data);
-        console.log(data);
+    
       } else {
         throw new Error("Error fetching product");
       }
@@ -64,9 +63,9 @@ function ProductDetails(): JSX.Element {
             <p className="text-md">{product.price}</p>
 
             <AddToCartBtn
-                    onClick={() => handleAdd(product)}
-                    inStock={product.inStock}
-                  />
+              onClick={() => handleAdd(product)}
+              inStock={product.inStock}
+            />
             <p
               className={`text-xs ${
                 product.inStock < 1 ? "text-red-500 italic underline" : ""

@@ -9,8 +9,9 @@ interface Product {
   price: number;
   description: string;
   title: string;
-  image: URL;
+  image: string;
   inStock: number;
+  quantity: number;
 }
 
 function ProductList(): JSX.Element {
@@ -25,7 +26,7 @@ function ProductList(): JSX.Element {
       if (response.ok) {
         const data = await response.json();
         setProducts(data);
-        console.log(data);
+       
       } else {
         throw new Error("Error fetching products");
       }
@@ -34,7 +35,7 @@ function ProductList(): JSX.Element {
     }
   };
 
-  const { addToCart } = useContext(StoreContext);
+  const { addToCart } = useContext<StoreContextValue>(StoreContext);
 
   const handleAdd = (product: Product): void => {
     addToCart(product);

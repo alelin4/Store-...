@@ -11,7 +11,7 @@ const ConfirmationPage: React.FC = () => {
 
   const getProductCount = (productId: unknown) => {
     const count = products.filter(
-      (product: { _id: any; }) => product._id === productId
+      (product: { _id: any }) => product._id === productId
     ).length;
     return count;
   };
@@ -33,14 +33,14 @@ const ConfirmationPage: React.FC = () => {
             <h1 className="text-2xl font-bold mb-4">Orderbekräftelse</h1>
             <p>
               Din beställning har bekräftats. Tack för att du handlat med oss{" "}
-              {userDetails.firstName}!
-              <p>Ditt ordernummer är: {orderData.orderNumber}.</p>
-              <p>
-                Du kommer få din order levererad till{" "}
-                {orderData.deliveryAddress.street},{" "}
-                {orderData.deliveryAddress.zipcode}{" "}
-                {orderData.deliveryAddress.city},{" "}
-              </p>
+              {userDetails.firstName}!{" "}
+            </p>
+            <p>Ditt ordernummer är: {orderData.orderNumber}.</p>
+            <p>
+              Du kommer få din order levererad till{" "}
+              {orderData.deliveryAddress.street},{" "}
+              {orderData.deliveryAddress.zipcode}{" "}
+              {orderData.deliveryAddress.city},{" "}
               {orderData.deliveryAddress.country}.
             </p>
             {orderData.shippingMethod === "648248d3bbcfe7d8092c84f8" && (
@@ -55,14 +55,14 @@ const ConfirmationPage: React.FC = () => {
             <ul>
               <ul>
                 {Array.from(
-                  new Set(products.map((product: { _id: any; }) => product._id))
+                  new Set(products.map((product: { _id: any }) => product._id))
                 ).map((productId) => {
                   const product = products.find(
-                    (product: { _id: unknown; }) => product._id === productId
+                    (product: { _id: unknown }) => product._id === productId
                   );
                   const count = getProductCount(productId);
                   return (
-                    <li key={productId}>
+                    <li key={product._id}>
                       <p>
                         Dina beställda produkter: {product.title} - Antal:{" "}
                         {count}

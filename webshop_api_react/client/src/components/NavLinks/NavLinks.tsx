@@ -103,7 +103,7 @@ function NavLinks() {
                   </li>
                   {loggedIn ? (
                     <li
-                    className="mb-2"
+                      className="mb-2"
                       onClick={() => {
                         handleLogout();
                         handleMobileMenuClick();
