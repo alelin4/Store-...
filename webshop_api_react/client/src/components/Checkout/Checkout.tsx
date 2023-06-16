@@ -20,6 +20,18 @@ interface ShippingMethod {
   deliveryTimeInHours: number;
 }
 
+interface Product {
+  _id: string;
+  price: number;
+  description: string;
+  title: string;
+  image: URL;
+  inStock: string;
+  quantity: number;
+}
+
+
+
 function Checkout() {
   const [userDetails, setUserDetails] = useState<UserDetails>({
     firstName: "",
@@ -234,18 +246,23 @@ function Checkout() {
           <h2 className="text-2xl font-bold mb-4">Dina Produkter</h2>
           <p className="mb-2">Pris för produkter: {total}:-</p>
           <ul className="mb-4">
-            {Array.from(
-              new Set(products.map((product: { _id: any }) => product._id))
-            ).map((productId) => {
+            {(
+              Array.from(
+                new Set(products.map((product: Product) => product._id))
+              ) as string[]
+            ).map((productId: string) => {
               const product = products.find(
                 (p: { _id: unknown }) => p._id === productId
               );
               return (
-                <li key={productId} className="p-2 mb-3 mt-3 border-b">
+                <li
+                  key={productId.toString()}
+                  className="p-2 mb-3 mt-3 border-b"
+                >
                   <div className="flex items-center">
                     <button
                       className="px-2 ml-7 mr-7"
-                      onClick={() => handleRemoveQuantity(productId)}
+                      onClick={() => handleRemoveQuantity(productId as string)}
                     >
                       <GrTrash />
                     </button>
@@ -390,7 +407,7 @@ function Checkout() {
           {shippingMethods.map((shippingOption) => (
             <div
               key={shippingOption._id}
-              className="border border-gray-200 rounded-lg mb-3 py-3 px-2 m-2 mb-4"
+              className="border border-gray-200 rounded-lg mb-3 py-3 px-2 m-2 "
             >
               <input
                 type="radio"

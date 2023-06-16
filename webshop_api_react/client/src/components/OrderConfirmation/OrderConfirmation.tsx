@@ -9,9 +9,9 @@ const ConfirmationPage: React.FC = () => {
     location.state;
   const totalWithShipping = total + shippingPrice;
 
-  const getProductCount = (productId) => {
+  const getProductCount = (productId: unknown) => {
     const count = products.filter(
-      (product) => product._id === productId
+      (product: { _id: any; }) => product._id === productId
     ).length;
     return count;
   };
@@ -55,10 +55,10 @@ const ConfirmationPage: React.FC = () => {
             <ul>
               <ul>
                 {Array.from(
-                  new Set(products.map((product) => product._id))
+                  new Set(products.map((product: { _id: any; }) => product._id))
                 ).map((productId) => {
                   const product = products.find(
-                    (product) => product._id === productId
+                    (product: { _id: unknown; }) => product._id === productId
                   );
                   const count = getProductCount(productId);
                   return (
