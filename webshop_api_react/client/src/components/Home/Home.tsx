@@ -1,5 +1,5 @@
 import ProductsList from "../ProductsList/ProductsList";
-import ErrorBoundry from "../../Errorboundry";
+import ErrorBoundry from "../../ErrorBoundry";
 
 function Home() {
   return (

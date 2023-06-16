@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { GrCart, GrFormClose, GrMenu } from "react-icons/gr";
+import { GrFormClose, GrMenu } from "react-icons/gr";
 import { Offcanvas } from "react-bootstrap";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";

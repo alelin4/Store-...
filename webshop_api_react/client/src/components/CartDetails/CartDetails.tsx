@@ -9,44 +9,44 @@ function CartDetails() {
     useContext(StoreContext);
   const isLoggedIn = Cookies.get("token") !== undefined;
 
-  const getProductCount = (productId) => {
+  const getProductCount = (productId: unknown) => {
     const count = products.filter(
-      (product) => product._id === productId
+      (product: { _id: any; }) => product._id === productId
     ).length;
     return count;
   };
 
-  const getProductPrice = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const getProductPrice = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       return product.price * getProductCount(productId);
     }
     return 0;
   };
 
-  const handleAddQuantity = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const handleAddQuantity = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       addToCart(product);
     }
   };
 
-  const handleRemoveQuantity = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const handleRemoveQuantity = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     if (product) {
       removeFromCart(product);
     }
   };
 
-  const handleRemoveItem = (productId) => {
+  const handleRemoveItem = (productId: unknown) => {
     const filteredProducts = products.filter(
-      (product) => product._id === productId
+      (product: { _id: any; }) => product._id === productId
     );
-    filteredProducts.forEach((product) => removeItemFromCart(product));
+    filteredProducts.forEach((product: any) => removeItemFromCart(product));
   };
 
-  const getProductName = (productId) => {
-    const product = products.find((product) => product._id === productId);
+  const getProductName = (productId: unknown) => {
+    const product = products.find((product: { _id: any; }) => product._id === productId);
     return product ? product.title : "";
   };
 
@@ -71,10 +71,10 @@ function CartDetails() {
             </div>
 
             <ul className="mb-4">
-              {Array.from(new Set(products.map((product) => product._id))).map(
+              {Array.from(new Set(products.map((product: { _id: any; }) => product._id))).map(
                 (productId) => {
                   const product = products.find(
-                    (product) => product._id === productId
+                    (product: { _id: unknown; }) => product._id === productId
                   );
                   return (
                     <li key={productId} className="p-2 mb-3 mt-3 border-b">
