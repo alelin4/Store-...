@@ -24,7 +24,7 @@ const ConfirmationPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-row items-center justify-between mt-2 py-6 px-10 text-xl font-medium">
+    <div className="mb-80 flex flex-row items-center justify-between mt-2 py-6 px-10 text-xl font-medium">
       <div className="p-2 border border-gray-200 rounded-lg">
         {isLoading ? (
           <Loader />
@@ -33,24 +33,25 @@ const ConfirmationPage: React.FC = () => {
             <h1 className="text-2xl font-bold mb-4">Orderbekräftelse</h1>
             <p>
               Din beställning har bekräftats. Tack för att du handlat med oss{" "}
-              {userDetails.firstName} ! du kommer få din order levererad till{" "}
-              {orderData.deliveryAddress.street},{" "}
-              {orderData.deliveryAddress.zipcode}{" "}
-              {orderData.deliveryAddress.city},{" "}
-
-
+              {userDetails.firstName}!
+              <p>Ditt ordernummer är: {orderData.orderNumber}.</p>
+              <p>
+                Du kommer få din order levererad till{" "}
+                {orderData.deliveryAddress.street},{" "}
+                {orderData.deliveryAddress.zipcode}{" "}
+                {orderData.deliveryAddress.city},{" "}
+              </p>
               {orderData.deliveryAddress.country}.
             </p>
             {orderData.shippingMethod === "648248d3bbcfe7d8092c84f8" && (
-              <p>Din beställning via DHL kommer anlända inom 24Tim</p>
+              <p>Din beställning via DHL kommer anlända inom 24 timmar.</p>
             )}
             {orderData.shippingMethod === "648248eabbcfe7d8092c84fa" && (
-              <p>Din beställning via Instabox kommer anlända inom 48Tim</p>
+              <p>Din beställning via Instabox kommer anlända inom 48 timmar.</p>
             )}
             {orderData.shippingMethod === "648253e3bbcfe7d8092c8544" && (
-              <p>Din beställning via Postnord kommer anlända inom 72Tim</p>
+              <p>Din beställning via Postnord kommer anlända inom 72 timmar.</p>
             )}
-            Ditt ordernummer är: {orderData.orderNumber}
             <ul>
               <ul>
                 {Array.from(
@@ -72,9 +73,7 @@ const ConfirmationPage: React.FC = () => {
               </ul>
             </ul>
 
-            <p>
-              Din totala summa, inklusive frakt är: Summa: {totalWithShipping}
-            </p>
+            <p>Din totala summa, inklusive frakt är: {totalWithShipping}:-</p>
           </div>
         )}
       </div>
