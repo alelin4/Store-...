@@ -10,7 +10,7 @@ const RemoveFromCartBtn: React.FunctionComponent<RemoveFromCartBtnProps> = ({
       onClick={onClick}
       className="bg-red-500 text-white text-s font-medium rounded-full hover:opacity-50"
     >
-     Ta bort
+      Ta bort
     </button>
   );
 };

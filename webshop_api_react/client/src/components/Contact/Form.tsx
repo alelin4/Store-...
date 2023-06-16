@@ -13,7 +13,9 @@ const SimpleForm: React.FC = () => {
     issue: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormValues((prevFormValues) => ({
       ...prevFormValues,
@@ -23,7 +25,7 @@ const SimpleForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formValues); // Fixa logiken för "skicka här"
+   
   };
 
   return (

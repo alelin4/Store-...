@@ -1,12 +1,25 @@
-/* eslint-disable react/prop-types */
-import { Component } from "react";
+import { Component, ReactNode } from "react";
 
-export default class ErrorBoundry extends Component {
-  state = { hasError: false };
+type ErrorBoundaryProps = {
+  children: ReactNode;
+};
+
+type ErrorBoundaryState = {
+  hasError: boolean;
+};
+
+export default class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
+  state: ErrorBoundaryState = {
+    hasError: false,
+  };
 
   static getDerivedStateFromError() {
     return { hasError: true };
   }
+
   render() {
     if (this.state.hasError) {
       return (
@@ -15,6 +28,7 @@ export default class ErrorBoundry extends Component {
         </div>
       );
     }
+
     return this.props.children;
   }
 }

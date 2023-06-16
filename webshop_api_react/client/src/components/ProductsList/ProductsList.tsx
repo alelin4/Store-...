@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
-import { StoreContext,  } from "../../Context-reducer/StoreContext";
+import { StoreContext } from "../../Context-reducer/StoreContext";
 import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
 
 interface Product {
@@ -26,7 +26,7 @@ function ProductList(): JSX.Element {
       if (response.ok) {
         const data = await response.json();
         setProducts(data);
-        console.log(data);
+       
       } else {
         throw new Error("Error fetching products");
       }

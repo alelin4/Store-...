@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context-reducer/StoreContext";
 import { GrTrash } from "react-icons/gr";
 
-
 interface UserDetails {
   firstName: string;
   lastName: string;
@@ -31,11 +30,10 @@ interface Product {
   quantity: number;
 }
 
-
 function Checkout() {
   const storeContext = useContext<StoreContextValue>(StoreContext);
   const [userDetails, setUserDetails] = useState<UserDetails>({
-
+    // Initialize user details state
     firstName: "",
     lastName: "",
     email: "",
@@ -55,17 +53,18 @@ function Checkout() {
     removeFromCart,
     removeItemFromCart,
     removeFromCheckout,
-  } = storeContext
+  } = storeContext;
 
   const [shippingMethods, setShippingMethods] = useState<ShippingMethod[]>([]);
   const [shippingPrice, setShippingPrice] = useState(0);
   const totalWithShipping = total + shippingPrice;
 
   useEffect(() => {
+    // Fetch shipping methods from the API
     fetch("/api/shippingMethod")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // Log the received data
+        
         setShippingMethods(data);
       })
       .catch((error) => {
@@ -74,6 +73,7 @@ function Checkout() {
   }, [total]);
 
   const handleShippingOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // Update shipping option and price based on the selected option
     const selectedShippingOption = shippingMethods.find(
       (option) => option._id === e.target.value
     );
@@ -85,6 +85,7 @@ function Checkout() {
     });
   };
   const validateForm = () => {
+    // Validate the form fields
     let isValid = true;
     const errors: Partial<UserDetails> = {};
     if (!userDetails.street) {
@@ -112,6 +113,7 @@ function Checkout() {
     return isValid;
   };
   const placeOrder = async () => {
+    // Handle placing the order
     const isValid = validateForm();
     if (!isValid) {
       return;
@@ -142,11 +144,8 @@ function Checkout() {
         body: JSON.stringify(orderData),
       });
 
-      console.log(orderData);
-
       if (response.ok) {
         const order = await response.json();
-        console.log(order); // Log the response data
 
         navigate("/order-confirmation", {
           state: {
@@ -191,15 +190,18 @@ function Checkout() {
   }, []);
 
   const getProductPrice = (productId: unknown) => {
+    // Retrieve the product with the given productId
     const product = products.find(
       (product: { _id: any }) => product._id === productId
     );
     if (product) {
       return product.price * getProductCount(productId);
     }
-    return 0;
+    return 0; // Return 0 if the product is not found
   };
   const getProductCount = (productId: unknown) => {
+    // Count the occurrences of the product with the given productId
+
     const count = products.filter(
       (product: { _id: any }) => product._id === productId
     ).length;
@@ -220,6 +222,8 @@ function Checkout() {
     }
   };
   const handleAddQuantity = (productId: unknown) => {
+    // Handle the addition of quantity for the product with the given productId
+
     const product = products.find(
       (product: { _id: any }) => product._id === productId
     );
@@ -228,6 +232,8 @@ function Checkout() {
     }
   };
   const handleRemoveItem = (productId: unknown) => {
+    // Handle the removal of the entire item with the given productId
+
     const filteredProducts = products.filter(
       (product: { _id: any }) => product._id === productId
     );

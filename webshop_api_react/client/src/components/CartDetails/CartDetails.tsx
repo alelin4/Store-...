@@ -6,18 +6,20 @@ import { GrCart, GrTrash } from "react-icons/gr";
 
 function CartDetails() {
   const { products, total, addToCart, removeFromCart, removeItemFromCart } =
-  useContext<StoreContextValue>(StoreContext);
+    useContext<StoreContextValue>(StoreContext);
   const isLoggedIn = Cookies.get("token") !== undefined;
 
   const getProductCount = (productId: unknown) => {
     const count = products.filter(
-      (product: { _id: any; }) => product._id === productId
+      (product: { _id: any }) => product._id === productId
     ).length;
     return count;
   };
 
   const getProductPrice = (productId: unknown) => {
-    const product = products.find((product: { _id: any; }) => product._id === productId);
+    const product = products.find(
+      (product: { _id: any }) => product._id === productId
+    );
     if (product) {
       return product.price * getProductCount(productId);
     }
@@ -25,14 +27,18 @@ function CartDetails() {
   };
 
   const handleAddQuantity = (productId: unknown) => {
-    const product = products.find((product: { _id: any; }) => product._id === productId);
+    const product = products.find(
+      (product: { _id: any }) => product._id === productId
+    );
     if (product) {
       addToCart(product);
     }
   };
 
   const handleRemoveQuantity = (productId: unknown) => {
-    const product = products.find((product: { _id: any; }) => product._id === productId);
+    const product = products.find(
+      (product: { _id: any }) => product._id === productId
+    );
     if (product) {
       removeFromCart(product);
     }
@@ -40,13 +46,15 @@ function CartDetails() {
 
   const handleRemoveItem = (productId: unknown) => {
     const filteredProducts = products.filter(
-      (product: { _id: any; }) => product._id === productId
+      (product: { _id: any }) => product._id === productId
     );
     filteredProducts.forEach((product: any) => removeItemFromCart(product));
   };
 
   const getProductName = (productId: unknown) => {
-    const product = products.find((product: { _id: any; }) => product._id === productId);
+    const product = products.find(
+      (product: { _id: any }) => product._id === productId
+    );
     return product ? product.title : "";
   };
 
@@ -71,56 +79,56 @@ function CartDetails() {
             </div>
 
             <ul className="mb-4">
-              {Array.from(new Set(products.map((product: { _id: any; }) => product._id))).map(
-                (productId) => {
-                  const product = products.find(
-                    (product: { _id: unknown; }) => product._id === productId
-                  );
-                  return (
-                    <li key={product._id} className="p-2 mb-3 mt-3 border-b">
-                      <div className="flex items-center mb-3">
-                        <button
-                          className="px-2 mr-5 text-red-500"
-                          onClick={() => handleRemoveQuantity(productId)}
-                        >
-                          <GrTrash />
-                        </button>
-                        {product && product.image && (
-                          <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-16 h-16 mr-10"
-                          />
-                        )}
-                        <div className="flex flex-grow">
-                          <div className="w-1/3">
-                            <h3>{getProductName(productId)}</h3>
-                            <h4>{product.price}:-</h4>
-                          </div>
-                          <div className="w-1/3 flex items-center justify-center">
-                            <button
-                              className="px-2 border border-gray-400 rounded mr-2"
-                              onClick={() => handleRemoveItem(productId)}
-                            >
-                              -
-                            </button>{" "}
-                            {getProductCount(productId)}{" "}
-                            <button
-                              className="px-2 border border-gray-400 rounded ml-2"
-                              onClick={() => handleAddQuantity(productId)}
-                            >
-                              +
-                            </button>
-                          </div>
-                          <div className="w-1/3 text-right">
-                            <h4>{getProductPrice(productId)}:-</h4>
-                          </div>
+              {Array.from(
+                new Set(products.map((product: { _id: any }) => product._id))
+              ).map((productId) => {
+                const product = products.find(
+                  (product: { _id: unknown }) => product._id === productId
+                );
+                return (
+                  <li key={product._id} className="p-2 mb-3 mt-3 border-b">
+                    <div className="flex items-center mb-3">
+                      <button
+                        className="px-2 mr-5 text-red-500"
+                        onClick={() => handleRemoveQuantity(productId)}
+                      >
+                        <GrTrash />
+                      </button>
+                      {product && product.image && (
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-16 h-16 mr-10"
+                        />
+                      )}
+                      <div className="flex flex-grow">
+                        <div className="w-1/3">
+                          <h3>{getProductName(productId)}</h3>
+                          <h4>{product.price}:-</h4>
+                        </div>
+                        <div className="w-1/3 flex items-center justify-center">
+                          <button
+                            className="px-2 border border-gray-400 rounded mr-2"
+                            onClick={() => handleRemoveItem(productId)}
+                          >
+                            -
+                          </button>{" "}
+                          {getProductCount(productId)}{" "}
+                          <button
+                            className="px-2 border border-gray-400 rounded ml-2"
+                            onClick={() => handleAddQuantity(productId)}
+                          >
+                            +
+                          </button>
+                        </div>
+                        <div className="w-1/3 text-right">
+                          <h4>{getProductPrice(productId)}:-</h4>
                         </div>
                       </div>
-                    </li>
-                  );
-                }
-              )}
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
             {products.length > 0 && (
               <Link to={isLoggedIn ? "/checkout" : "/login"}>
