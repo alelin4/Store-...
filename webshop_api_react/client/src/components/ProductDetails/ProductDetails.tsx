@@ -63,8 +63,10 @@ function ProductDetails(): JSX.Element {
 
             <p className="text-md">{product.price}</p>
 
-            <AddToCartBtn onClick={() => handleAdd(product)}  />
-
+            <AddToCartBtn
+                    onClick={() => handleAdd(product)}
+                    inStock={product.inStock}
+                  />
             <p
               className={`text-xs ${
                 product.inStock < 1 ? "text-red-500 italic underline" : ""
