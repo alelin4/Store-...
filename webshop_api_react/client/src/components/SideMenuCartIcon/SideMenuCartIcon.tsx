@@ -13,7 +13,7 @@ function SideMenuCartIcon() {
 
   return (
     <div className="relative">
-      <span className="absolute right-7px top-[-4px] bg-gray-300 h-4 w-4 rounded-full flex items-center justify-center text-gray-800">
+      <span className="absolute left-7px top-[-3px] bg-gray-300 h-4 w-4 rounded-full flex items-center justify-center text-gray-800">
         {products.length}
       </span>
       <div className="flex items-center justify-center w-9 h-9 rounded-full bg-white ml-3 mr-3">
