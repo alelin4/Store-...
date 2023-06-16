@@ -227,14 +227,12 @@ function Checkout() {
     filteredProducts.forEach((product: any) => removeItemFromCart(product));
   };
   return (
-    <div className="max-w-5xl	p-6 pt-9 pb-9 mt-9 mb-9 mx-auto border border-gray-200 rounded-lg">
-      <h1 className="text-2xl font-bold  text-center ">Kassa</h1>
-      <ul className="mb-4">
-        <div>
-          <div className="flex flex-row items-center justify-between mt-2 py-6 px-10 text-xl font-medium">
-            <h2>Dina Produkter</h2>
-            <p> Pris för produkter: {total}:-</p>
-          </div>
+    <div className="max-w-5xl p-6 pt-9 pb-9 mt-9 mb-9 mx-auto border border-gray-200 rounded-lg">
+      <h1 className="text-2xl font-bold text-center mb-6">Kassa</h1>
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="p-2 border border-gray-200 rounded-lg">
+          <h2 className="text-2xl font-bold mb-4">Dina Produkter</h2>
+          <p className="mb-2">Pris för produkter: {total}:-</p>
           <ul className="mb-4">
             {Array.from(
               new Set(products.map((product: { _id: any }) => product._id))
@@ -284,10 +282,8 @@ function Checkout() {
             })}
           </ul>
         </div>
-      </ul>
-      <div className="grid grid-cols-2 gap-3 mb-4">
-        <div className=" p-2 border border-gray-200 rounded-lg">
-          <h2 className="text-2xl font-bold m-2 mb-4">Leveransinformation</h2>
+        <div className="p-2 border border-gray-200 rounded-lg">
+          <h2 className="text-2xl font-bold mb-4">Leveransinformation</h2>
           <div className="mb-4 m-2">
             <label className="block mb-2" htmlFor="name">
               Namn:
@@ -389,8 +385,8 @@ function Checkout() {
             )}
           </div>
         </div>
-        <div className=" p-2 border border-gray-200 rounded-lg">
-          <h2 className="text-2xl font-bold m-2 mb-4">Leveransmetod</h2>
+        <div className="p-2 border border-gray-200 rounded-lg">
+          <h2 className="text-2xl font-bold mb-4">Leveransmetod</h2>
           {shippingMethods.map((shippingOption) => (
             <div
               key={shippingOption._id}
@@ -427,7 +423,7 @@ function Checkout() {
           </div>
         </div>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-6">
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
           onClick={() => navigate(-1)}
@@ -438,7 +434,7 @@ function Checkout() {
           className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
           onClick={placeOrder}
         >
-          Lägg bestälning{" "}
+          Lägg beställning
         </button>
       </div>
     </div>
