@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context-reducer/StoreContext";
@@ -20,15 +22,7 @@ interface ShippingMethod {
   deliveryTimeInHours: number;
 }
 
-interface Product {
-  _id: string;
-  price: number;
-  description: string;
-  title: string;
-  image: URL;
-  inStock: string;
-  quantity: number;
-}
+
 
 function Checkout() {
   const storeContext = useContext<StoreContextValue>(StoreContext);
@@ -119,6 +113,7 @@ function Checkout() {
       return;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const orderItems = products.map((product: { _id: any }) => ({
       product: product._id,
       quantity: getProductCount(product._id),
@@ -257,7 +252,7 @@ function Checkout() {
               (p: { _id: unknown }) => p._id === productId
             );
             return (
-              <li key={productId} className="p-2 mb-3 mt-3 border-b">
+              <li key={product._id} className="p-2 mb-3 mt-3 border-b">
                 <div className="flex items-center">
                   <button
                     className="px-2 ml-7 mr-7"

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";

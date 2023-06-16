@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useReducer, FormEvent, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import Cookies from "js-cookie";

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext } from "react";
 import { StoreContext } from "../../Context-reducer/StoreContext";
 import { Link } from "react-router-dom";

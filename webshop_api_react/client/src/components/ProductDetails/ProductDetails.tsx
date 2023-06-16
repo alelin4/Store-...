@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../Context-reducer/StoreContext";
