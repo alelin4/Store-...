@@ -20,6 +20,18 @@ interface ShippingMethod {
   deliveryTimeInHours: number;
 }
 
+interface Product {
+  _id: string;
+  price: number;
+  description: string;
+  title: string;
+  image: URL;
+  inStock: string;
+  quantity: number;
+}
+
+
+
 function Checkout() {
   const [userDetails, setUserDetails] = useState<UserDetails>({
     firstName: "",
@@ -227,6 +239,7 @@ function Checkout() {
     filteredProducts.forEach((product: any) => removeItemFromCart(product));
   };
   return (
+
     <div>
       {" "}
       <h1 className="text-2xl font-bold text-center mt-7 mb-6">Kassa</h1>
@@ -260,6 +273,8 @@ function Checkout() {
                   )}
                   <div className="flex items-center">
                     <div className="mr-3">
+
+
                       <h3>{getProductName(productId)}</h3>
                       <h4>{product.price}:-</h4>
                     </div>
@@ -280,6 +295,7 @@ function Checkout() {
                     </div>
                   </div>
 
+
                   <div>{getProductPrice(productId)}:-</div>
                 </div>
               </li>
@@ -297,110 +313,111 @@ function Checkout() {
               <label className="block mb-2" htmlFor="name">
                 Namn:
               </label>
-              <input
-                type="text"
-                id="name"
-                value={`${userDetails.firstName} ${userDetails.lastName}`}
-                disabled
-                className="w-full p-2 border border-gray-200 rounded-lg"
-              />
-            </div>
-            <div className="m-2 mb-4">
-              <label className="block mb-2" htmlFor="email">
-                E-post:
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={userDetails.email}
-                disabled
-                className="w-full p-2 border border-gray-200 rounded-lg"
-              />
-            </div>
-            <div className=" m-2 mb-4">
-              <label className="block mb-2" htmlFor="street">
-                Adress:
-              </label>
-              <input
-                type="text"
-                id="street"
-                value={userDetails.street}
-                onChange={(e) =>
-                  setUserDetails({ ...userDetails, street: e.target.value })
-                }
-                className={`w-full p-2 border border-gray-200 rounded-lg ${
-                  errors.street ? "border-red-500" : ""
-                }`}
-              />
-              {errors.street && (
-                <p className="text-red-500 text-sm">{errors.street}</p>
-              )}
-            </div>
-            <div className=" m-2 mb-4">
-              <label className="block mb-2" htmlFor="zipcode">
-                Postnummer:
-              </label>
-              <input
-                type="text"
-                id="zipcode"
-                value={userDetails.zipcode}
-                onChange={(e) =>
-                  setUserDetails({ ...userDetails, zipcode: e.target.value })
-                }
-                className={`w-full p-2 border border-gray-200 rounded-lg ${
-                  errors.zipcode ? "border-red-500" : ""
-                }`}
-              />
-              {errors.zipcode && (
-                <p className="text-red-500 text-sm">{errors.zipcode}</p>
-              )}
-            </div>
-            <div className=" m-2 mb-4">
-              <label className="block mb-2" htmlFor="city">
-                Stad:
-              </label>
-              <input
-                type="text"
-                id="city"
-                value={userDetails.city}
-                onChange={(e) =>
-                  setUserDetails({ ...userDetails, city: e.target.value })
-                }
-                className={`w-full p-2 border border-gray-200 rounded-lg ${
-                  errors.city ? "border-red-500" : ""
-                }`}
-              />
-              {errors.city && (
-                <p className="text-red-500 text-sm">{errors.city}</p>
-              )}
-            </div>
-            <div className=" m-2 mb-4">
-              <label className="block mb-2" htmlFor="country">
-                Land:
-              </label>
-              <input
-                type="text"
-                id="country"
-                value={userDetails.country}
-                onChange={(e) =>
-                  setUserDetails({ ...userDetails, country: e.target.value })
-                }
-                className={`w-full p-2 border border-gray-200 rounded-lg ${
-                  errors.country ? "border-red-500" : ""
-                }`}
-              />
-              {errors.country && (
-                <p className="text-red-500 text-sm">{errors.country}</p>
-              )}
-            </div>
+
+                
+            <input
+              type="text"
+              id="name"
+              value={`${userDetails.firstName} ${userDetails.lastName}`}
+              disabled
+              className="w-full p-2 border border-gray-200 rounded-lg"
+            />
           </div>
-          <div className="md:col-span-1 p-2 border border-gray-200 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4 ml-3">Leveransmetod</h2>
-            {shippingMethods.map((shippingOption) => (
-              <div
-                key={shippingOption._id}
-                className="border border-gray-200 rounded-lg mb-3 py-3 px-2 m-2 mb-4"
-              >
+          <div className="m-2 mb-4">
+            <label className="block mb-2" htmlFor="email">
+              E-post:
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={userDetails.email}
+              disabled
+              className="w-full p-2 border border-gray-200 rounded-lg"
+            />
+          </div>
+          <div className=" m-2 mb-4">
+            <label className="block mb-2" htmlFor="street">
+              Adress:
+            </label>
+            <input
+              type="text"
+              id="street"
+              value={userDetails.street}
+              onChange={(e) =>
+                setUserDetails({ ...userDetails, street: e.target.value })
+              }
+              className={`w-full p-2 border border-gray-200 rounded-lg ${
+                errors.street ? "border-red-500" : ""
+              }`}
+            />
+            {errors.street && (
+              <p className="text-red-500 text-sm">{errors.street}</p>
+            )}
+          </div>
+          <div className=" m-2 mb-4">
+            <label className="block mb-2" htmlFor="zipcode">
+              Postnummer:
+            </label>
+            <input
+              type="text"
+              id="zipcode"
+              value={userDetails.zipcode}
+              onChange={(e) =>
+                setUserDetails({ ...userDetails, zipcode: e.target.value })
+              }
+              className={`w-full p-2 border border-gray-200 rounded-lg ${
+                errors.zipcode ? "border-red-500" : ""
+              }`}
+            />
+            {errors.zipcode && (
+              <p className="text-red-500 text-sm">{errors.zipcode}</p>
+            )}
+          </div>
+          <div className=" m-2 mb-4">
+            <label className="block mb-2" htmlFor="city">
+              Stad:
+            </label>
+            <input
+              type="text"
+              id="city"
+              value={userDetails.city}
+              onChange={(e) =>
+                setUserDetails({ ...userDetails, city: e.target.value })
+              }
+              className={`w-full p-2 border border-gray-200 rounded-lg ${
+                errors.city ? "border-red-500" : ""
+              }`}
+            />
+            {errors.city && (
+              <p className="text-red-500 text-sm">{errors.city}</p>
+            )}
+          </div>
+          <div className=" m-2 mb-4">
+            <label className="block mb-2" htmlFor="country">
+              Land:
+            </label>
+            <input
+              type="text"
+              id="country"
+              value={userDetails.country}
+              onChange={(e) =>
+                setUserDetails({ ...userDetails, country: e.target.value })
+              }
+              className={`w-full p-2 border border-gray-200 rounded-lg ${
+                errors.country ? "border-red-500" : ""
+              }`}
+            />
+            {errors.country && (
+              <p className="text-red-500 text-sm">{errors.country}</p>
+            )}
+          </div>
+        </div>
+        <div className="p-2 border border-gray-200 rounded-lg">
+          <h2 className="text-2xl font-bold mb-4">Leveransmetod</h2>
+          {shippingMethods.map((shippingOption) => (
+            <div
+              key={shippingOption._id}
+              className="border border-gray-200 rounded-lg mb-3 py-3 px-2 m-2">
                 <input
                   type="radio"
                   id={shippingOption._id}

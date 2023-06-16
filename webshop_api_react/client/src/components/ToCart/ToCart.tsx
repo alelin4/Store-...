@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { GrCart } from "react-icons/gr";
-import { Link } from "react-router-dom";
 import { StoreContext } from "../../Context-reducer/StoreContext";
 
 function ToCart() {
